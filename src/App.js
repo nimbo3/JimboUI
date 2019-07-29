@@ -5,9 +5,9 @@ import Button from '@material-ui/core/Button';
 
 class App extends Component{
   render = () => (
-      <Button variant="contained" color="secondary">
-        Hello World
-      </Button>
+      <div className={"App-header"}>
+        salam
+      </div>
   );
 }
 
