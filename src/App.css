@@ -8,19 +8,88 @@
   pointer-events: none;
 }
 
+.App-search-input-root {
+  display: flex;
+  align-items: center;
+  margin: 5vh;
+  width: 500px;
+}
+
+.App-input {
+  margin-left: 20px;
+  /*width: 500px;*/
+  flex: 1px;
+}
+
+.App-icon-button {
+  padding: 10px;
+}
+
 .App-header {
-  background-color: #282c34;
+  background-color: white;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: black;
+}
+
+.App-search-bar {
+  margin: 5vh;
+  width: 70vh;
 }
 
 .App-link {
   color: #61dafb;
+}
+
+.search-header {
+  border-bottom: solid 1px #cccccc;
+}
+
+.App-search-result-input-root {
+  width: 500px;
+  display: inline-flex;
+}
+
+.search-header h2 {
+  font-size: 30px;
+  display: inline-block;
+  margin-right: 20px;
+  margin-left: 30px;
+}
+
+.search-items {
+  padding: 20px 20px 20px 100px;
+}
+
+.search-item {
+  margin: 10px 20px 30px 10px;
+  width: 40%;
+  min-width: 600px;
+  max-width: 90%;
+}
+
+.search-item-title {
+  color: #1a0dab;
+  font-size: 20px;
+}
+
+.search-item-title:visited{
+  color: #609;
+}
+
+.search-item-url {
+  color: #327336;
+}
+
+.search-item-url:visited {
+  color: #327336;
+}
+
+.search-item-text {
 }
 
 @keyframes App-logo-spin {
