@@ -2,12 +2,12 @@ import React, {Component} from "react";
 import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
 import IconButton from "@material-ui/core/IconButton";
-import SearchIcon from "@material-ui/core/SvgIcon/SvgIcon";
-import App from "./App";
+        import SearchIcon from "@material-ui/core/SvgIcon/SvgIcon";
+        import App from "./App";
 
-class SearchResult extends Component {
-    constructor(props) {
-        super(props);
+        class SearchResult extends Component {
+            constructor(props) {
+                super(props);
         this.state = {
             query: SearchResult.parseQuery(this.props.location.search),
             items: []
