@@ -67,14 +67,15 @@
 
 .search-item {
   margin: 10px 20px 30px 10px;
-  width: 40%;
-  min-width: 600px;
+  min-width: 40%;
+  width: 600px;
   max-width: 90%;
 }
 
 .search-item-title {
   color: #1a0dab;
   font-size: 20px;
+  text-decoration: none;
 }
 
 .search-item-title:visited{
@@ -83,6 +84,7 @@
 
 .search-item-url {
   color: #327336;
+  text-decoration: none;
 }
 
 .search-item-url:visited {

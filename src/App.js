@@ -22,7 +22,7 @@ class App extends Component {
                 </IconButton>
             </Paper>
 
-            <ButtonGroup variant="contained" color={"#ffff00"} size="large"
+            <ButtonGroup variant="contained" color="default" size="large"
                          aria-label="large contained secondary button group">
                 <Button>Joojle Search</Button>
                 <Button>I'm Feeling Lucky</Button>
