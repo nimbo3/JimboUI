@@ -6,9 +6,15 @@ import SearchIcon from "@material-ui/core/SvgIcon/SvgIcon";
 import App from "./App";
 
 class SearchResult extends Component {
-    state = {
-        items: []
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            query: SearchResult.parseQuery(this.props.location.search),
+            items: []
+        };
+        this.searchQuery = this.state.query;
+        this.search = this.search.bind(this);
+    }
 
     static parseQuery(queryString) {
         var query = {};
@@ -17,20 +23,21 @@ class SearchResult extends Component {
             var pair = pairs[i].split('=');
             query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
         }
-        return query;
+        return query.q;
     }
 
     render = () => {
-        let query = SearchResult.parseQuery(this.props.location.search);
         return (
             <div>
                 <div className={"search-header"}>
                     <h2>Joojle</h2>
                     <Paper className={"App-search-result-input-root"}>
                         <InputBase
+                            onChange={e => {this.searchQuery = e.target.value}}
                             className={"App-input"}
                             placeholder="Search"
-                            value={query.q}
+                            defaultValue={this.state.query}
+                            onKeyPress={e => {this.keyDown(e)}}
                         />
                         <IconButton className={"App-icon-button"} aria-label="search">
                             <SearchIcon/>
@@ -49,20 +56,32 @@ class SearchResult extends Component {
                             )
                         )
                     }
-
                 </div>
 
             </div>
         );
     };
 
-    componentDidMount() {
-        fetch("http://localhost:8000/test.json")
+    search() {
+        fetch("http://localhost:8000/test.json?q=" + this.searchQuery)
             .then(res => res.json())
             .then((data) => {
-                this.setState({ items: data })
+                this.setState({
+                    query: this.searchQuery,
+                    items: data
+                });
+                this.props.history.push("/search?q=" + this.searchQuery);
             })
             .catch(console.log)
+    }
+
+    keyDown(e) {
+        if(e.key === 'Enter')
+            this.search();
+    }
+
+    componentDidMount() {
+        this.search()
     }
 }
 
