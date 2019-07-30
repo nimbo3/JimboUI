@@ -63,7 +63,7 @@ class SearchResult extends Component {
     };
 
     search() {
-        fetch("http://localhost:8000/test.json?q=" + this.searchQuery)
+        fetch("http://46.4.40.237:147:1478/search?q=" + this.searchQuery)
             .then(res => res.json())
             .then((data) => {
                 this.setState({
