@@ -2,12 +2,11 @@ import React, {Component} from "react";
 import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
 import IconButton from "@material-ui/core/IconButton";
-        import SearchIcon from "@material-ui/core/SvgIcon/SvgIcon";
-        import App from "./App";
+import SearchIcon from "@material-ui/core/SvgIcon/SvgIcon";
 
-        class SearchResult extends Component {
-            constructor(props) {
-                super(props);
+class SearchResult extends Component {
+    constructor(props) {
+        super(props);
         this.state = {
             query: SearchResult.parseQuery(this.props.location.search),
             items: []
@@ -33,11 +32,15 @@ import IconButton from "@material-ui/core/IconButton";
                     <h2>Joojle</h2>
                     <Paper className={"App-search-result-input-root"}>
                         <InputBase
-                            onChange={e => {this.searchQuery = e.target.value}}
+                            onChange={e => {
+                                this.searchQuery = e.target.value
+                            }}
                             className={"App-input"}
                             placeholder="Search"
                             defaultValue={this.state.query}
-                            onKeyPress={e => {this.keyDown(e)}}
+                            onKeyPress={e => {
+                                this.keyDown(e)
+                            }}
                         />
                         <IconButton className={"App-icon-button"} aria-label="search">
                             <SearchIcon/>
@@ -63,7 +66,7 @@ import IconButton from "@material-ui/core/IconButton";
     };
 
     search() {
-        fetch("http://46.4.40.237:147:1478/search?q=" + this.searchQuery)
+        fetch("http://46.4.40.237:1478/search?q=" + this.searchQuery)
             .then(res => res.json())
             .then((data) => {
                 this.setState({
@@ -76,7 +79,7 @@ import IconButton from "@material-ui/core/IconButton";
     }
 
     keyDown(e) {
-        if(e.key === 'Enter')
+        if (e.key === 'Enter')
             this.search();
     }
 
