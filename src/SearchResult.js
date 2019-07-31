@@ -3,12 +3,14 @@ import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
 import IconButton from "@material-ui/core/IconButton";
 import SearchIcon from "@material-ui/core/SvgIcon/SvgIcon";
-import {withMobileDialog} from "@material-ui/core";
+import { progressBarFetch, setOriginalFetch } from 'react-fetch-progressbar';
+import { ProgressBar } from 'react-fetch-progressbar';
+
+setOriginalFetch(window.fetch);
+window.fetch = progressBarFetch;
 
 class SearchResult extends Component {
     constructor(props) {
-        console.log("https://www.tasnimnews.com/fa/news/1396/12/01/1661868/%D8%B3%D8%AE%D9%86%DA%AF%D9%88%DB%8C-%D8%B3%D9%BE%D8%A7%D9%87-%D8%A8%D8%A7%D9%84%DA%AF%D8%B1%D8%AF%D9%87%D8%A7%DB%8C-%D8%B3%D9%BE%D8%A7%D9%87-%D9%84%D8%A7%D8%B4%D9%87-%D9%87%D9%88%D8%A7%D9%BE%DB%8C%D9%85%D8%A7%DB%8C-%D8%AA%D9%87%D8%B1%D8%A7%D9%86-%D9%80%D9%80-%DB%8C%D8%A7%D8%B3%D9%88%D8%AC-%D8%B1%D8%A7-%D9%BE%DB%8C%D8%AF%D8%A7-%DA%A9%D8%B1%D8%AF%D9%86%D8%AF");
-        console.log(SearchResult.uriShow("https://www.tasnimnews.com/fa/news/1396/12/01/1661868/%D8%B3%D8%AE%D9%86%DA%AF%D9%88%DB%8C-%D8%B3%D9%BE%D8%A7%D9%87-%D8%A8%D8%A7%D9%84%DA%AF%D8%B1%D8%AF%D9%87%D8%A7%DB%8C-%D8%B3%D9%BE%D8%A7%D9%87-%D9%84%D8%A7%D8%B4%D9%87-%D9%87%D9%88%D8%A7%D9%BE%DB%8C%D9%85%D8%A7%DB%8C-%D8%AA%D9%87%D8%B1%D8%A7%D9%86-%D9%80%D9%80-%DB%8C%D8%A7%D8%B3%D9%88%D8%AC-%D8%B1%D8%A7-%D9%BE%DB%8C%D8%AF%D8%A7-%DA%A9%D8%B1%D8%AF%D9%86%D8%AF"));
         super(props);
         this.state = {
             query: SearchResult.parseQuery(this.props.location.search),
@@ -31,6 +33,7 @@ class SearchResult extends Component {
     render = () => {
         return (
             <div>
+                <ProgressBar style={{backgroundColor: "black"}}/>
                 <div className={"search-header"}>
                     <h2>Joojle</h2>
                     <Paper className={"App-search-result-input-root"}>
@@ -46,14 +49,13 @@ class SearchResult extends Component {
                             }}
                         />
                         <IconButton className={"App-icon-button"} aria-label="search">
-                            <SearchIcon/>
+                            <SearchIcon />
                         </IconButton>
                     </Paper>
                 </div>
                 <div className={"search-items"}>
                     {
-                        this.state.items.map(
-                            item => (
+                        this.state.items.map(item => (
                                 <div className={"search-item"}>
                                     <a className={"search-item-title"} href={item.url}>{item.title}</a><br/>
                                     <a className={"search-item-url"} href={item.url}>{SearchResult.uriShow(item.url)}</a><br/>
