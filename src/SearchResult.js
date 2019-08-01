@@ -14,7 +14,9 @@ class SearchResult extends Component {
         super(props);
         this.state = {
             query: SearchResult.parseQuery(this.props.location.search),
-            items: []
+            items: [],
+            searchTime: -1,
+            resultCount: 0
         };
         this.searchQuery = this.state.query;
         this.search = this.search.bind(this);
@@ -49,11 +51,16 @@ class SearchResult extends Component {
                             }}
                         />
                         <IconButton className={"App-icon-button"} aria-label="search">
-                            <SearchIcon />
+                            <SearchIcon/>
                         </IconButton>
                     </Paper>
                 </div>
                 <div className={"search-items"}>
+                    <div className={"search-item"}>
+                        <small>
+                            {this.state.searchTime === -1 ? "" : "About " + this.state.resultCount + " results (" + this.state.searchTime / 1000 + " seconds)"}
+                        </small>
+                    </div>
                     {
                         this.state.items.map(item => (
                                 <div className={"search-item"}>
@@ -77,7 +84,8 @@ class SearchResult extends Component {
             .then((data) => {
                 this.setState({
                     query: this.searchQuery,
-                    items: data
+                    items: data.searchItemList,
+                    searchTime: data.searchTime
                 });
                 this.props.history.push("/search?q=" + this.searchQuery);
             })
