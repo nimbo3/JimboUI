@@ -23,10 +23,10 @@ class SearchResult extends Component {
     }
 
     static parseQuery(queryString) {
-        var query = {};
-        var pairs = (queryString[0] === '?' ? queryString.substr(1) : queryString).split('&');
-        for (var i = 0; i < pairs.length; i++) {
-            var pair = pairs[i].split('=');
+        let query = {};
+        let pairs = (queryString[0] === '?' ? queryString.substr(1) : queryString).split('&');
+        for (let i = 0; i < pairs.length; i++) {
+            let pair = pairs[i].split('=');
             query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
         }
         return query.q;
@@ -58,7 +58,7 @@ class SearchResult extends Component {
                 <div className={"search-items"}>
                     <div className={"search-item"}>
                         <small>
-                            {this.state.searchTime === -1 ? "" : "About " + this.state.resultCount + " results (" + this.state.searchTime / 1000 + " seconds)"}
+                            {this.state.searchTime === -1 ? "" : "Found results in " + this.state.searchTime / 1000 + " seconds"}
                         </small>
                     </div>
                     {
