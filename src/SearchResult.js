@@ -78,7 +78,7 @@ class SearchResult extends Component {
     };
 
     search() {
-        var url = "http://46.4.40.237:1478/search?q=" + this.searchQuery;
+        var url = "http://144.76.24.115:1478/search?q=" + this.searchQuery;
         fetch(url)
             .then(res => res.json())
             .then((data) => {
