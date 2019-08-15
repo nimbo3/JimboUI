@@ -58,7 +58,7 @@ class SearchResult extends Component {
                 <div className={"search-items"}>
                     <div className={"search-item"}>
                         <small>
-                            {this.state.searchTime === -1 ? "" : "Found results in " + this.state.searchTime / 1000 + " seconds"}
+                            {this.state.searchTime === -1 ? "" : "About " + this.state.resultCount + " results in " + this.state.searchTime + " seconds"}
                         </small>
                     </div>
                     {
@@ -66,7 +66,7 @@ class SearchResult extends Component {
                                 <div className={"search-item"}>
                                     <a className={"search-item-title"} href={item.url}>{item.title}</a><br/>
                                     <a className={"search-item-url"} href={item.url}>{SearchResult.uriShow(item.url)}</a><br/>
-                                    <span className={"search-item-text"}>{item.text}</span>
+                                    <span className={"search-item-text"} dangerouslySetInnerHTML={{__html: item.text}}></span>
                                 </div>
                             )
                         )
@@ -78,14 +78,15 @@ class SearchResult extends Component {
     };
 
     search() {
-        var url = "http://144.76.24.115:1478/search?q=" + this.searchQuery;
+        var url = "http://localhost:8000/?q=" + this.searchQuery;
         fetch(url)
             .then(res => res.json())
             .then((data) => {
                 this.setState({
                     query: this.searchQuery,
-                    items: data.searchItemList,
-                    searchTime: data.searchTime
+                    items: data.items,
+                    searchTime: data.searchTime,
+                    resultCount: data.resultCount
                 });
                 this.props.history.push("/search?q=" + this.searchQuery);
             })
