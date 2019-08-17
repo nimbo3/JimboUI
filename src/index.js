@@ -6,12 +6,14 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import SearchResult from "./SearchResult";
 import Register from "./Register";
+import Login from "./Login";
 
 ReactDOM.render((
     <Router>
         <Route exact path="/" component={App}/>
         <Route exact path={"/search"} component={SearchResult}/>
-        <Route exact path={"/register"} component={Register}/>
+        <Route exact path={"/signup"} component={Register}/>
+        <Route exact path={"/login"} component={Login}/>
     </Router>
 
     ), document.getElementById('root'));
