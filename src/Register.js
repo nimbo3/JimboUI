@@ -22,7 +22,7 @@ export default class Register extends Component {
                                 <TextField
                                     id="outlined-with-placeholder"
                                     label="Username"
-                                    placeholder="Placeholder"
+                                    placeholder="Enter a unique username"
                                     margin="normal"
                                     variant="outlined"
                                     className={"text-field"}
@@ -30,7 +30,7 @@ export default class Register extends Component {
                                 <TextField
                                     id="outlined-with-placeholder"
                                     label="Email"
-                                    placeholder="Placeholder"
+                                    placeholder="Enter a valid unique email"
                                     margin="normal"
                                     variant="outlined"
                                     className={"text-field"}
@@ -38,7 +38,7 @@ export default class Register extends Component {
                                 <TextField
                                     id="outlined-with-placeholder"
                                     label="Password"
-                                    placeholder="Placeholder"
+                                    placeholder="Enter password (at least 8 characters)"
                                     margin="normal"
                                     variant="outlined"
                                     className={"text-field"}
@@ -52,5 +52,9 @@ export default class Register extends Component {
                 </div>
             </div>
         )
+    }
+
+    register() {
+
     }
 }
