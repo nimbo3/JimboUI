@@ -7,6 +7,7 @@ import * as serviceWorker from './serviceWorker';
 import SearchResult from "./SearchResult";
 import Register from "./Register";
 import Login from "./Login";
+import Logout from "./logout";
 
 ReactDOM.render((
     <Router>
@@ -14,6 +15,7 @@ ReactDOM.render((
         <Route exact path={"/search"} component={SearchResult}/>
         <Route exact path={"/signup"} component={Register}/>
         <Route exact path={"/login"} component={Login}/>
+        <Route exact path={"/logout"} component={Logout}/>
     </Router>
 
     ), document.getElementById('root'));
