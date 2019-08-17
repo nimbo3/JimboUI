@@ -51,6 +51,7 @@
 
 .App-search-result-input-root {
   width: 500px;
+  margin-left: 10px;
   display: inline-flex;
 }
 

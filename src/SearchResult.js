@@ -5,6 +5,7 @@ import IconButton from "@material-ui/core/IconButton";
 import SearchIcon from '@material-ui/icons/Search';
 import { progressBarFetch, setOriginalFetch } from 'react-fetch-progressbar';
 import { ProgressBar } from 'react-fetch-progressbar';
+import Header from "./components/header";
 
 setOriginalFetch(window.fetch);
 window.fetch = progressBarFetch;
@@ -36,25 +37,7 @@ class SearchResult extends Component {
         return (
             <div>
                 <ProgressBar style={{backgroundColor: "black"}}/>
-                <div className={"search-header"}>
-                    <h2>Joojle</h2>
-                    <Paper className={"App-search-result-input-root"}>
-                        <InputBase
-                            onChange={e => {
-                                this.searchQuery = e.target.value
-                            }}
-                            className={"App-input"}
-                            placeholder="Search"
-                            defaultValue={this.state.query}
-                            onKeyPress={e => {
-                                this.keyDown(e)
-                            }}
-                        />
-                        <IconButton className={"App-icon-button"} aria-label="search">
-                            <SearchIcon/>
-                        </IconButton>
-                    </Paper>
-                </div>
+                <Header searchField={true}/>
                 <div className={"search-items"}>
                     <div className={"search-item"}>
                         <small>

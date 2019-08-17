@@ -25,7 +25,7 @@ class App extends Component {
         if (!this.state.redirect)
             return (
                 <div className={"App-header"}>
-                    <Header/>
+                    <Header searchField={false}/>
                     <h1 className>Joojle</h1>
                     <Paper className={"App-search-input-root"}>
                         <InputBase
