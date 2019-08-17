@@ -122,7 +122,26 @@ class Register extends Component {
     }
 
     register() {
-        console.log(this.state)
+        let url = "http://localhost:8000/api/users/account-create";
+        let requestBody = {
+            username: this.state.values.username,
+            email: this.state.values.email,
+            password: this.state.values.password
+        };
+        fetch(url, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestBody)
+        })
+            .then(res => {
+                if(res.status === 400)
+                    res.json().then(data => {
+                        console.log(data)
+                    })
+            })
+            .catch(console.log)
     }
 }
 
