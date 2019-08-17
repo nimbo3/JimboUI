@@ -38,7 +38,8 @@ class Register extends Component {
                 email: "",
                 password: "",
                 showPassword: false,
-            }
+            },
+            errors: {}
         }
     }
 
@@ -75,6 +76,8 @@ class Register extends Component {
                                     margin="normal"
                                     variant="outlined"
                                     className={"text-field"}
+                                    helperText={this.state.errors.username}
+                                    error={this.state.errors.username !== undefined}
                                 />
                                 <TextField
                                     id="outlined-with-placeholder"
@@ -84,6 +87,8 @@ class Register extends Component {
                                     margin="normal"
                                     variant="outlined"
                                     className={"text-field"}
+                                    helperText={this.state.errors.email}
+                                    error={this.state.errors.email !== undefined}
                                 />
                                 <TextField
                                     id="outlined-with-placeholder"
@@ -108,6 +113,8 @@ class Register extends Component {
                                             </InputAdornment>
                                         ),
                                     }}
+                                    helperText={this.state.errors.password}
+                                    error={this.state.errors.password !== undefined}
                                 />
 
                                 <Button variant="contained" color="primary" onClick={this.register}>
@@ -138,7 +145,17 @@ class Register extends Component {
             .then(res => {
                 if(res.status === 400)
                     res.json().then(data => {
-                        console.log(data)
+                        let errors = {};
+                        if(data.username !== undefined)
+                            errors.username = data.username[0];
+                        if(data.email !== undefined)
+                            errors.email = data.email[0];
+                        if(data.password !== undefined)
+                            errors.password = data.password[0];
+                        this.setState({
+                            ...this.state,
+                            errors: errors
+                        })
                     })
             })
             .catch(console.log)
