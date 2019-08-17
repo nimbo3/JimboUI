@@ -7,6 +7,9 @@ import InputBase from "@material-ui/core/InputBase";
 import IconButton from "@material-ui/core/IconButton";
 import SearchIcon from '@material-ui/icons/Search';
 import Paper from "@material-ui/core/Paper";
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 function classNames(classes) {
     return Object.entries(classes)
@@ -21,7 +24,7 @@ class Header extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            user: this.props.user,
+            user: cookies.get("user"),
             searchValue: this.props.searchFieldValue
         };
     }

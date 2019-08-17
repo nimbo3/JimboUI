@@ -54,14 +54,14 @@ class Register extends Component {
             return (
                 <div className={"App-header"}>
                     <h2>Your account created successfully</h2>
-                    <Header user={cookies.get("user")}/>
+                    <Header />
                     <Button variant="outlined" href={"/"}>Home</Button>
                 </div>
             );
         else
             return (
             <div className={"App-header"}>
-                <Header user={cookies.get("user")}/>
+                <Header />
                 <div className={"container"}>
                     <Paper className={"paper"}>
                         <div className={"row"}>
