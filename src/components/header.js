@@ -1,8 +1,8 @@
 import React, {Component} from "react";
-import Account from '@material-ui/icons/AccountCircle';
-import Register from '@material-ui/icons/PersonAdd';
+import AccountIcon from '@material-ui/icons/AccountCircle';
+import RegisterIcon from '@material-ui/icons/PersonAdd';
 import Button from "@material-ui/core/Button";
-import Logout from '@material-ui/icons/ExitToApp';
+import LogoutIcon from '@material-ui/icons/ExitToApp';
 
 function classNames(classes) {
     return Object.entries(classes)
@@ -27,21 +27,29 @@ class Header extends Component {
             "text-center": true
         });
 
-        let content = (
-            <div>
-                <Button href={"/signup"}><Register/>&nbsp;Register</Button>
-                <Button href={"/login"}><Account/>&nbsp;Login</Button>
+        let rightMenu = (
+            <div className={"float-right"}>
+                <Button href={"/signup"}><RegisterIcon/>&nbsp;Register</Button>
+                <Button href={"/login"}><AccountIcon/>&nbsp;Login</Button>
             </div>
         );
 
         if (this.state.user !== null && this.state.user !== undefined)
-            content = (
-                <Button><Logout/>&nbsp;Logout</Button>
+            rightMenu = (
+                <div className={"float-right"}>
+                    <Button href={"/logout"}><LogoutIcon/>&nbsp;Logout</Button>
+                </div>
+
             );
 
         return (
             <div className={"app-header"}>
-                {content}
+                <div>
+                    <div className={"float-left"}>
+                        <Button href={"/"}>Joojle</Button>
+                    </div>
+                    {rightMenu}
+                </div>
             </div>
         )
     }
