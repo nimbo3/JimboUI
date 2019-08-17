@@ -39,7 +39,6 @@ class Header extends Component {
                 <div className={"float-right"}>
                     <Button href={"/logout"}><LogoutIcon/>&nbsp;Logout</Button>
                 </div>
-
             );
 
         return (
