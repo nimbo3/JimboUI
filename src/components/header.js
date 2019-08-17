@@ -16,11 +16,13 @@ function classNames(classes) {
 }
 
 class Header extends Component {
+    searchFieldRef = React.createRef();
 
     constructor(props, context) {
         super(props, context);
         this.state = {
-            user: this.props.user
+            user: this.props.user,
+            searchValue: this.props.searchFieldValue
         };
     }
 
@@ -55,16 +57,19 @@ class Header extends Component {
                                 <Paper className={"App-search-result-input-root"}>
                                     <InputBase
                                         onChange={e => {
-                                            this.searchQuery = e.target.value
+                                            this.setState({
+                                                "searchValue": e.target.value
+                                            })
                                         }}
                                         className={"App-input"}
                                         placeholder="Search"
-                                        defaultValue={this.state.query}
+                                        defaultValue={this.props.searchFieldValue}
                                         onKeyPress={e => {
-                                            this.keyDown(e)
+                                            this.keyPress(e)
                                         }}
+                                        ref={this.searchFieldRef}
                                     />
-                                    <IconButton className={"App-icon-button"} aria-label="search">
+                                    <IconButton onClick={this.props.onSearch} className={"App-icon-button"} aria-label="search">
                                         <SearchIcon/>
                                     </IconButton>
                                 </Paper>
@@ -75,6 +80,11 @@ class Header extends Component {
                 </div>
             </div>
         )
+    }
+
+    keyPress(e) {
+        if (e.key === 'Enter')
+            this.props.onSearch()
     }
 }
 

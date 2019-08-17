@@ -11,6 +11,8 @@ setOriginalFetch(window.fetch);
 window.fetch = progressBarFetch;
 
 class SearchResult extends Component {
+    searchFieldRef = React.createRef();
+
     constructor(props) {
         super(props);
         this.state = {
@@ -19,7 +21,6 @@ class SearchResult extends Component {
             searchTime: -1,
             resultCount: 0
         };
-        this.searchQuery = this.state.query;
         this.search = this.search.bind(this);
     }
 
@@ -37,7 +38,12 @@ class SearchResult extends Component {
         return (
             <div>
                 <ProgressBar style={{backgroundColor: "black"}}/>
-                <Header searchField={true}/>
+                <Header
+                    searchField={true}
+                    searchFieldValue={this.state.query}
+                    ref={this.searchFieldRef}
+                    onSearch={this.search}
+                />
                 <div className={"search-items"}>
                     <div className={"search-item"}>
                         <small>
@@ -61,17 +67,25 @@ class SearchResult extends Component {
     };
 
     search() {
-        var url = "http://localhost:8000/?q=" + this.searchQuery;
+        let str = this.state.query;
+        if(this.searchFieldRef.current.state !== undefined) {
+            str = this.searchFieldRef.current.state.searchValue;
+        }
+        this.fetch_search_result(str)
+    }
+
+    fetch_search_result(str) {
+        var url = "http://localhost:8000/?q=" + str;
+        this.props.history.push("/search?q=" + str);
         fetch(url)
             .then(res => res.json())
             .then((data) => {
                 this.setState({
-                    query: this.searchQuery,
+                    query: str,
                     items: data.items,
                     searchTime: data.searchTime,
                     resultCount: data.resultCount
                 });
-                this.props.history.push("/search?q=" + this.searchQuery);
             })
             .catch(console.log)
     }
