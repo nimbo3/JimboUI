@@ -22,15 +22,21 @@ class Register extends Component {
         })
     };
 
+    handleChange = (prop) => (event: React.ChangeEvent<HTMLInputElement>) => {
+        this.setValues({...this.state.values, [prop]: event.target.value});
+
+        this.register = this.register.bind(this);
+    };
+
+
     constructor(props: P, context: any) {
         super(props, context);
 
         this.state = {
             values: {
-                amount: '',
-                password: '',
-                weight: '',
-                weightRange: '',
+                username: "",
+                email: "",
+                password: "",
                 showPassword: false,
             }
         }
@@ -64,6 +70,7 @@ class Register extends Component {
                                 <TextField
                                     id="outlined-with-placeholder"
                                     label="Username"
+                                    onChange={this.handleChange("username")}
                                     placeholder="Enter a unique username"
                                     margin="normal"
                                     variant="outlined"
@@ -72,6 +79,7 @@ class Register extends Component {
                                 <TextField
                                     id="outlined-with-placeholder"
                                     label="Email"
+                                    onChange={this.handleChange("email")}
                                     placeholder="Enter a valid unique email"
                                     margin="normal"
                                     variant="outlined"
@@ -80,6 +88,7 @@ class Register extends Component {
                                 <TextField
                                     id="outlined-with-placeholder"
                                     label="Password"
+                                    onChange={this.handleChange("password")}
                                     type={this.state.values.showPassword ? 'text' : 'password'}
                                     placeholder="Enter password (at least 8 characters)"
                                     margin="normal"
@@ -94,15 +103,14 @@ class Register extends Component {
                                                     onClick={handleClickShowPassword}
                                                     onMouseDown={handleMouseDownPassword}
                                                 >
-                                                    {this.state.values.showPassword ? <VisibilityOff /> : <Visibility />}
+                                                    {this.state.values.showPassword ? <VisibilityOff/> : <Visibility/>}
                                                 </IconButton>
                                             </InputAdornment>
                                         ),
                                     }}
-
                                 />
 
-                                <Button variant="contained" color="primary">
+                                <Button variant="contained" color="primary" onClick={this.register}>
                                     Register
                                 </Button>
                             </div>
@@ -114,7 +122,7 @@ class Register extends Component {
     }
 
     register() {
-
+        console.log(this.state)
     }
 }
 
