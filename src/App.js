@@ -7,6 +7,7 @@ import IconButton from "@material-ui/core/IconButton";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from '@material-ui/icons/Search';
 import Redirect from "react-router-dom/es/Redirect";
+import Header from "./components/header";
 
 class App extends Component {
 
@@ -24,6 +25,7 @@ class App extends Component {
         if (!this.state.redirect)
             return (
                 <div className={"App-header"}>
+                    <Header/>
                     <h1 className>Joojle</h1>
                     <Paper className={"App-search-input-root"}>
                         <InputBase
