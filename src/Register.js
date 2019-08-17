@@ -4,16 +4,13 @@ import TextField from "@material-ui/core/TextField";
 import Header from "./components/header";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
-import Input from "@material-ui/core/Input";
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import InputBase from "@material-ui/core/InputBase";
-import SearchIcon from "@material-ui/core/SvgIcon/SvgIcon";
+import Cookies from 'universal-cookie';
 
+const cookies = new Cookies();
 
 class Register extends Component {
     setValues(newValues) {
@@ -39,7 +36,8 @@ class Register extends Component {
                 password: "",
                 showPassword: false,
             },
-            errors: {}
+            errors: {},
+            created: false
         }
     }
 
@@ -48,17 +46,22 @@ class Register extends Component {
             this.setValues({...this.state.values, showPassword: !this.state.values.showPassword});
         };
 
-        const handleChange = (prop) => (event: React.ChangeEvent<HTMLInputElement>) => {
-            this.setValues({...this.state.values, [prop]: event.target.value});
-        };
-
         const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
             event.preventDefault();
         };
 
-        return (
+        if(this.state.created)
+            return (
+                <div className={"App-header"}>
+                    <h2>Your account created successfully</h2>
+                    <Header user={cookies.get("user")}/>
+                    <Button variant="outlined" href={"/"}>Home</Button>
+                </div>
+            );
+        else
+            return (
             <div className={"App-header"}>
-                <Header/>
+                <Header user={cookies.get("user")}/>
                 <div className={"container"}>
                     <Paper className={"paper"}>
                         <div className={"row"}>
@@ -143,7 +146,15 @@ class Register extends Component {
             body: JSON.stringify(requestBody)
         })
             .then(res => {
-                if(res.status === 400)
+                if(res.status === 201)
+                    res.json().then(data => {
+                        cookies.set('user', data, { path: '/' });
+                        this.setState({
+                            created:true,
+                            errors: {}
+                        })
+                    });
+                else if(res.status === 400)
                     res.json().then(data => {
                         let errors = {};
                         if(data.username !== undefined)
@@ -156,7 +167,7 @@ class Register extends Component {
                             ...this.state,
                             errors: errors
                         })
-                    })
+                    });
             })
             .catch(console.log)
     }
