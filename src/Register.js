@@ -133,7 +133,7 @@ class Register extends Component {
     }
 
     register() {
-        let url = "http://localhost:8000/api/users/account-create";
+        let url = "http://46.4.40.237/api/users/account-create";
         let requestBody = {
             username: this.state.values.username,
             email: this.state.values.email,
