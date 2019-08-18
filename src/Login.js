@@ -10,7 +10,7 @@ export default class Register extends Component {
         return (
             <div className={"App-header"}>
                 <Header/>
-                <div className={"container"}>
+                <div className={"app-container"}>
                     <Paper className={"paper"}>
                         <div className={"row"}>
                             <div className={"col-12"}>

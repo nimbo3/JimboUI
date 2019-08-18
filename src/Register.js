@@ -50,85 +50,86 @@ class Register extends Component {
             event.preventDefault();
         };
 
-        if(this.state.created)
+        if (this.state.created)
             return (
                 <div className={"App-header"}>
                     <h2>Your account created successfully</h2>
-                    <Header />
+                    <Header/>
                     <Button variant="outlined" href={"/"}>Home</Button>
                 </div>
             );
         else
             return (
-            <div className={"App-header"}>
-                <Header />
-                <div className={"container"}>
-                    <Paper className={"paper"}>
-                        <div className={"row"}>
-                            <div className={"col-12"}>
-                                <h3>Create new Joojle account</h3>
+                <div className={"App-header"}>
+                    <Header/>
+                    <div className={"app-container"}>
+                        <Paper className={"paper"}>
+                            <div className={"row"}>
+                                <div className={"col-12"}>
+                                    <h3>Create new Joojle account</h3>
+                                </div>
                             </div>
-                        </div>
-                        <div className={"row"}>
-                            <div className={"col-12"}>
-                                <TextField
-                                    id="outlined-with-placeholder"
-                                    label="Username"
-                                    onChange={this.handleChange("username")}
-                                    placeholder="Enter a unique username"
-                                    margin="normal"
-                                    variant="outlined"
-                                    className={"text-field"}
-                                    helperText={this.state.errors.username}
-                                    error={this.state.errors.username !== undefined}
-                                />
-                                <TextField
-                                    id="outlined-with-placeholder"
-                                    label="Email"
-                                    onChange={this.handleChange("email")}
-                                    placeholder="Enter a valid unique email"
-                                    margin="normal"
-                                    variant="outlined"
-                                    className={"text-field"}
-                                    helperText={this.state.errors.email}
-                                    error={this.state.errors.email !== undefined}
-                                />
-                                <TextField
-                                    id="outlined-with-placeholder"
-                                    label="Password"
-                                    onChange={this.handleChange("password")}
-                                    type={this.state.values.showPassword ? 'text' : 'password'}
-                                    placeholder="Enter password (at least 8 characters)"
-                                    margin="normal"
-                                    variant="outlined"
-                                    className={"text-field"}
-                                    InputProps={{
-                                        endAdornment: (
-                                            <InputAdornment position="end">
-                                                <IconButton
-                                                    edge="end"
-                                                    aria-label="toggle password visibility"
-                                                    onClick={handleClickShowPassword}
-                                                    onMouseDown={handleMouseDownPassword}
-                                                >
-                                                    {this.state.values.showPassword ? <VisibilityOff/> : <Visibility/>}
-                                                </IconButton>
-                                            </InputAdornment>
-                                        ),
-                                    }}
-                                    helperText={this.state.errors.password}
-                                    error={this.state.errors.password !== undefined}
-                                />
+                            <div className={"row"}>
+                                <div className={"col-12"}>
+                                    <TextField
+                                        id="outlined-with-placeholder"
+                                        label="Username"
+                                        onChange={this.handleChange("username")}
+                                        placeholder="Enter a unique username"
+                                        margin="normal"
+                                        variant="outlined"
+                                        className={"text-field"}
+                                        helperText={this.state.errors.username}
+                                        error={this.state.errors.username !== undefined}
+                                    />
+                                    <TextField
+                                        id="outlined-with-placeholder"
+                                        label="Email"
+                                        onChange={this.handleChange("email")}
+                                        placeholder="Enter a valid unique email"
+                                        margin="normal"
+                                        variant="outlined"
+                                        className={"text-field"}
+                                        helperText={this.state.errors.email}
+                                        error={this.state.errors.email !== undefined}
+                                    />
+                                    <TextField
+                                        id="outlined-with-placeholder"
+                                        label="Password"
+                                        onChange={this.handleChange("password")}
+                                        type={this.state.values.showPassword ? 'text' : 'password'}
+                                        placeholder="Enter password (at least 8 characters)"
+                                        margin="normal"
+                                        variant="outlined"
+                                        className={"text-field"}
+                                        InputProps={{
+                                            endAdornment: (
+                                                <InputAdornment position="end">
+                                                    <IconButton
+                                                        edge="end"
+                                                        aria-label="toggle password visibility"
+                                                        onClick={handleClickShowPassword}
+                                                        onMouseDown={handleMouseDownPassword}
+                                                    >
+                                                        {this.state.values.showPassword ? <VisibilityOff/> :
+                                                            <Visibility/>}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            ),
+                                        }}
+                                        helperText={this.state.errors.password}
+                                        error={this.state.errors.password !== undefined}
+                                    />
 
-                                <Button variant="contained" color="primary" onClick={this.register}>
-                                    Register
-                                </Button>
+                                    <Button variant="contained" color="primary" onClick={this.register}>
+                                        Register
+                                    </Button>
+                                </div>
                             </div>
-                        </div>
-                    </Paper>
+                        </Paper>
+                    </div>
                 </div>
-            </div>
-        )
+            )
     }
 
     register() {
@@ -146,22 +147,22 @@ class Register extends Component {
             body: JSON.stringify(requestBody)
         })
             .then(res => {
-                if(res.status === 201)
+                if (res.status === 201)
                     res.json().then(data => {
-                        cookies.set('user', data, { path: '/' });
+                        cookies.set('user', data, {path: '/'});
                         this.setState({
-                            created:true,
+                            created: true,
                             errors: {}
                         })
                     });
-                else if(res.status === 400)
+                else if (res.status === 400)
                     res.json().then(data => {
                         let errors = {};
-                        if(data.username !== undefined)
+                        if (data.username !== undefined)
                             errors.username = data.username[0];
-                        if(data.email !== undefined)
+                        if (data.email !== undefined)
                             errors.email = data.email[0];
-                        if(data.password !== undefined)
+                        if (data.password !== undefined)
                             errors.password = data.password[0];
                         this.setState({
                             ...this.state,
