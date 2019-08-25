@@ -2,6 +2,9 @@ import React, {Component} from "react";
 import { progressBarFetch, setOriginalFetch } from 'react-fetch-progressbar';
 import { ProgressBar } from 'react-fetch-progressbar';
 import Header from "./components/header";
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 setOriginalFetch(window.fetch);
 window.fetch = progressBarFetch;
@@ -72,8 +75,18 @@ class SearchResult extends Component {
 
     fetch_search_result(str) {
         let url = "http://46.4.40.237/test/?q=" + str;
+
+        let headers = {};
+        if (cookies.get("user") !== null)
+            headers = {
+                "X-API-KEY": cookies.get("user").token
+            };
+
         this.props.history.push("/search?q=" + str);
-        fetch(url)
+        fetch(url, {
+            method: "POST",
+            headers: headers
+        })
             .then(res => res.json())
             .then((data) => {
                 this.setState({
