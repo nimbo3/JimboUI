@@ -71,7 +71,7 @@ class SearchResult extends Component {
     }
 
     fetch_search_result(str) {
-        let url = "http://144.76.119.111/test/?q=" + str;
+        let url = "http://46.4.40.237/test/?q=" + str;
         this.props.history.push("/search?q=" + str);
         fetch(url)
             .then(res => res.json())
