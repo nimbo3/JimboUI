@@ -6,6 +6,7 @@ import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 
 export default class Register extends Component {
+
     render() {
         return (
             <div className={"App-header"}>
@@ -36,7 +37,7 @@ export default class Register extends Component {
                                     className={"text-field"}
                                 />
                                 <Button variant="contained" color="primary">
-                                    Login
+                                    cd e
                                 </Button>
                             </div>
                         </div>
@@ -45,4 +46,5 @@ export default class Register extends Component {
             </div>
         )
     }
+
 }
