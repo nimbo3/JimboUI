@@ -74,11 +74,11 @@ class SearchResult extends Component {
     }
 
     fetch_search_result(str) {
-        // let url = "http://46.4.40.237/test/?q=" + str; // For Publish
-        let url = "http://localhost:8000/test/?q=" + str; // For Test
+        let url = "http://46.4.40.237/test/?q=" + str; // For Publish
+        // let url = "http://localhost:8000/test/?q=" + str; // For Test
 
         let headers = {};
-        if (cookies.get("user") !== null)
+        if (cookies.get("user") !== undefined)
             headers = {
                 "authorization": cookies.get("user").token
             };
@@ -101,10 +101,16 @@ class SearchResult extends Component {
     }
 
     static uriShow(uri) {
-        let decode_uri = decodeURIComponent(uri);
-        if(decode_uri.length > 100)
-            decode_uri = decode_uri.substr(0, 100) + "...";
-        return decode_uri;
+        try {
+            let decode_uri = decodeURI(uri);
+            if (decode_uri.length > 100)
+                decode_uri = decode_uri.substr(0, 100) + "...";
+            return decode_uri;
+        } catch (e) {
+            if (uri.length > 100)
+                return uri.substr(0, 100) + "...";
+            return uri;
+        }
     }
 
     keyDown(e) {
