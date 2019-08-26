@@ -5,7 +5,7 @@ import Header from "./components/header";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 
-export default class Register extends Component {
+export default class Login extends Component {
     render() {
         return (
             <div className={"App-header"}>
