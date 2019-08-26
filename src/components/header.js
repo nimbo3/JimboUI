@@ -34,6 +34,7 @@ class Header extends Component {
         if (this.state.user !== null && this.state.user !== undefined)
             rightMenu = (
                 <div className={"float-right"}>
+                    <Button href={"/history"}><HistoryIcon/>&nbsp;History</Button>
                     <Button href={"/logout"}><LogoutIcon/>&nbsp;Logout</Button>
                 </div>
             );
