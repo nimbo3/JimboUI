@@ -1,5 +1,3 @@
-/*global console*/
-/*eslint require-jsdoc: 0, valid-jsdoc: 0, no-console: 0*/
 import React, {Component} from "react";
 
 import {Graph} from "react-d3-graph";
@@ -9,21 +7,14 @@ export default class MyGraph extends Component {
     constructor(props: P, context: any) {
         super(props, context);
         this.state = {
-            nodes : [],
-            links: []
+            data: {
+                nodes: [{id: "Harry" , color: "red", size: 240}, {id: "Sally"}, {id: "Alice"}],
+                links: [{source: "Harry", target: "Sally",}, {source: "Harry", target: "Alice"}],
+            }
         }
     }
 
     render() {
-        // graph payload (with minimalist structure)
-        // data schema
-        // const data = {
-        //     nodes: [{id: "Harry" , color: "red", size: 1000}, {id: "Sally"}, {id: "Alice"}],
-        //     links: [{source: "Harry", target: "Sally",}, {source: "Harry", target: "Alice"}],
-        //
-        // }
-// the graph configuration, you only need to pass down properties
-// that you want to override, otherwise default ones will be used
         const myConfig = {
             nodeHighlightBehavior: true,
             node: {
@@ -36,7 +27,7 @@ export default class MyGraph extends Component {
             },
         };
 
-// graph event callbacks
+        // graph event callbacks
         const onClickGraph = function () {
             // window.alert(`Clicked the graph background`);
         };
@@ -79,7 +70,7 @@ export default class MyGraph extends Component {
 
         return (<Graph
             id="graph-id" // id is mandatory, if no id is defined rd3g will throw an error
-            data={this.state}
+            data={this.state.data}
             config={myConfig}
             onClickNode={onClickNode}
             onRightClickNode={onRightClickNode}
@@ -93,7 +84,7 @@ export default class MyGraph extends Component {
         />);
     }
 
-    function parseData(Data) {
-        return;
+    parseData(Data) {
+        return undefined;
     }
 }
