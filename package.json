@@ -7,11 +7,13 @@
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
     "react": "^16.8.6",
+    "react-d3-graph": "latest",
     "react-dom": "^16.8.6",
+    "react-editable-json-tree": "^2.2.1",
     "react-fetch-progressbar": "^1.0.0",
+    "react-router": "latest",
     "react-scripts": "3.0.1",
-    "serve": "11.1.0",
-    "react-router": "latest"
+    "serve": "11.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
