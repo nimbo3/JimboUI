@@ -26,7 +26,7 @@ class App extends Component {
             return (
                 <div className={"App-header"}>
                     <Header searchField={false}/>
-                    <h1 className>Joojle</h1>
+                    <h1>Joojle</h1>
                     <Paper className={"App-search-input-root"}>
                         <InputBase
                             onChange={e => {this.query = e.target.value}}

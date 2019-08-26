@@ -6,6 +6,7 @@ import LogoutIcon from '@material-ui/icons/ExitToApp';
 import InputBase from "@material-ui/core/InputBase";
 import IconButton from "@material-ui/core/IconButton";
 import SearchIcon from '@material-ui/icons/Search';
+import HistoryIcon from '@material-ui/icons/History';
 import Paper from "@material-ui/core/Paper";
 import Cookies from 'universal-cookie';
 
