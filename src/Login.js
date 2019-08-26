@@ -25,7 +25,7 @@ class Login extends Component {
     handleChange = (prop) => (event: React.ChangeEvent<HTMLInputElement>) => {
         this.setValues({...this.state.values, [prop]: event.target.value});
 
-        this.register = this.register.bind(this);
+        this.login = this.login.bind(this);
     };
 
 
@@ -56,7 +56,7 @@ class Login extends Component {
         if (this.state.created)
             return (
                 <div className={"App-header"}>
-                    <h2>Your account created successfully</h2>
+                    <h2>Your logged in successfully</h2>
                     <Header/>
                     <Button variant="outlined" href={"/"}>Home</Button>
                 </div>
@@ -113,7 +113,7 @@ class Login extends Component {
                                         error={this.state.errors.password !== undefined}
                                     />
 
-                                    <Button variant="contained" color="primary" onClick={this.register}>
+                                    <Button variant="contained" color="primary" onClick={this.login}>
                                         Login
                                     </Button>
                                 </div>
@@ -124,11 +124,10 @@ class Login extends Component {
             )
     }
 
-    register() {
-        let url = `http://${rest_api_host}/api/users/account-create`;
+    login() {
+        let url = `http://${rest_api_host}/api/users/account-login`;
         let requestBody = {
             username: this.state.values.username,
-            email: this.state.values.email,
             password: this.state.values.password
         };
         fetch(url, {
@@ -139,7 +138,7 @@ class Login extends Component {
             body: JSON.stringify(requestBody)
         })
             .then(res => {
-                if (res.status === 201)
+                if (res.status === 202)
                     res.json().then(data => {
                         cookies.set('user', data, {path: '/'});
                         this.setState({
@@ -147,15 +146,13 @@ class Login extends Component {
                             errors: {}
                         })
                     });
-                else if (res.status === 400)
+                else if (res.status !== 202)
                     res.json().then(data => {
                         let errors = {};
                         if (data.username !== undefined)
-                            errors.username = data.username[0];
-                        if (data.email !== undefined)
-                            errors.email = data.email[0];
+                            errors.username = data.username;
                         if (data.password !== undefined)
-                            errors.password = data.password[0];
+                            errors.password = data.password;
                         this.setState({
                             ...this.state,
                             errors: errors
