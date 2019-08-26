@@ -74,17 +74,18 @@ class SearchResult extends Component {
     }
 
     fetch_search_result(str) {
-        let url = "http://46.4.40.237/test/?q=" + str;
+        // let url = "http://46.4.40.237/test/?q=" + str; // For Publish
+        let url = "http://localhost:8000/test/?q=" + str; // For Test
 
         let headers = {};
         if (cookies.get("user") !== null)
             headers = {
-                "X-API-KEY": cookies.get("user").token
+                "authorization": cookies.get("user").token
             };
 
         this.props.history.push("/search?q=" + str);
         fetch(url, {
-            method: "POST",
+            method: "GET",
             headers: headers
         })
             .then(res => res.json())

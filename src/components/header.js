@@ -30,12 +30,6 @@ class Header extends Component {
     }
 
     render() {
-        const account_profile_classes = classNames({
-            "account-profile": true,
-            "justify-content-center": true,
-            "text-center": true
-        });
-
         let rightMenu = (
             <div className={"float-right"}>
                 <Button href={"/signup"}><RegisterIcon/>&nbsp;Register</Button>

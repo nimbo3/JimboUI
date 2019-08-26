@@ -12,6 +12,9 @@ import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
 
+const rest_api_host = "localhost:8000";     // For Test
+// const rest_api_host = "46.4.40.237";     // For publish
+
 class Register extends Component {
     setValues(newValues) {
         this.setState({
@@ -133,7 +136,7 @@ class Register extends Component {
     }
 
     register() {
-        let url = "http://46.4.40.237/api/users/account-create";
+        let url = `http://${rest_api_host}/api/users/account-create`;
         let requestBody = {
             username: this.state.values.username,
             email: this.state.values.email,
