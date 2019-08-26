@@ -25,12 +25,12 @@ class Login extends Component {
     handleChange = (prop) => (event: React.ChangeEvent<HTMLInputElement>) => {
         this.setValues({...this.state.values, [prop]: event.target.value});
 
-        this.login = this.login.bind(this);
     };
 
 
     constructor(props: P, context: any) {
         super(props, context);
+        this.login = this.login.bind(this);
 
         this.state = {
             values: {
