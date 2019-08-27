@@ -92,11 +92,15 @@ class Header extends Component {
     }
 
     filter() {
-        let filter = this.filterDialogRef.current.state;
-        delete filter.open;
+        let filter_list = this.filterDialogRef.current.state;
+        let new_filter_list = {};
+        for(let key in filter_list) {
+            if(filter_list[key] !== "" && key !== "open")
+                new_filter_list[key] = filter_list[key];
+        }
         this.setState({
             ...this.state,
-            filter: filter
+            filter: new_filter_list
         });
     }
 }
