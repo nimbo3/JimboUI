@@ -78,9 +78,11 @@ export default function DialogSelect() {
                                 <MenuItem value="">
                                     <em>None</em>
                                 </MenuItem>
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
+                                <MenuItem value="economics">Economics</MenuItem>
+                                <MenuItem value="health">Health</MenuItem>
+                                <MenuItem value='sport'>Sport</MenuItem>
+                                <MenuItem value='technology'>Technology</MenuItem>
+                                <MenuItem value='art'>Art</MenuItem>
                             </Select>
                         </FormControl>
                     </form>
