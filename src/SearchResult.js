@@ -21,6 +21,7 @@ class SearchResult extends Component {
             resultCount: 0
         };
         this.search = this.search.bind(this);
+        this.fetch_search_result = this.fetch_search_result.bind(this);
     }
 
     static parseQuery(queryString) {
@@ -30,7 +31,7 @@ class SearchResult extends Component {
             let pair = pairs[i].split('=');
             query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
         }
-        return query.q;
+        return query;
     }
 
     render = () => {
@@ -39,9 +40,10 @@ class SearchResult extends Component {
                 <ProgressBar style={{backgroundColor: "black"}}/>
                 <Header
                     searchField={true}
-                    searchFieldValue={this.state.query}
+                    searchFieldValue={this.state.query.q}
                     ref={this.searchFieldRef}
                     onSearch={this.search}
+                    onChange={this.handleChange}
                 />
                 <div className={"search-items"}>
                     <div className={"search-item"}>
@@ -66,32 +68,40 @@ class SearchResult extends Component {
     };
 
     search() {
-        let str = this.state.query;
-        if(this.searchFieldRef.current.state !== undefined) {
-            str = this.searchFieldRef.current.state.searchValue;
-        }
-        this.fetch_search_result(str)
+        console.log(this.searchFieldRef.current.state);
+        this.setState({
+            ...this.state,
+            query: {
+                q: this.searchFieldRef.current.state.searchValue,
+                ...this.searchFieldRef.current.state.filter
+            }
+        }, () => {
+            this.fetch_search_result(this.state.query);
+        });
     }
 
-    fetch_search_result(str) {
-        // let url = "http://46.4.40.237/test/?q=" + str; // For Publish
-        let url = "http://localhost:8000/test/?q=" + str; // For Test
+    fetch_search_result(query) {
+        // let url = "http://46.4.40.237/test/?"; // For Publish
+        let url = "http://localhost:8000/test/?"; // For Test
 
         let headers = {};
         if (cookies.get("user") !== undefined)
             headers = {
                 "authorization": cookies.get("user").token
             };
-
-        this.props.history.push("/search?q=" + str);
-        fetch(url, {
+        console.log(query);
+        let search_address = "";
+        for(let key in query) {
+            search_address += `${key}=${query[key]}&`
+        }
+        this.props.history.push("/search?" + search_address.substr(0, search_address.length - 1));
+        fetch(url + search_address.substr(0, search_address.length - 1), {
             method: "GET",
             headers: headers
         })
             .then(res => res.json())
             .then((data) => {
                 this.setState({
-                    query: str,
                     items: data.items,
                     searchTime: data.searchTime,
                     resultCount: data.resultCount

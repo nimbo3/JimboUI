@@ -29,7 +29,6 @@ class Header extends Component {
     }
 
     render() {
-        console.log(this.state);
         let rightMenu = (
             <div className={"float-right"}>
                 <Button href={"/signup"}><RegisterIcon/>&nbsp;Register</Button>
@@ -101,7 +100,10 @@ class Header extends Component {
         this.setState({
             ...this.state,
             filter: new_filter_list
+        }, () => {
+            this.props.onSearch();
         });
+
     }
 }
 
