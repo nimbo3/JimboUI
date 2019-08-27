@@ -69,8 +69,12 @@ class Header extends Component {
                                     </IconButton>
                                 </Paper>
                             ) : " "
+                        }&nbsp;
+                        {
+                            this.props.searchField ? (
+                                <DialogSelect onFilter={this.filter}/>
+                            ) : ""
                         }
-                        &nbsp;<DialogSelect onFilter={this.filter}/>
                     </div>
                 </div>
             </div>
