@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function DialogSelect() {
+export default function DialogSelect(props) {
     const classes = useStyles();
     const [state, setState] = React.useState({
         open: false,
@@ -31,7 +31,7 @@ export default function DialogSelect() {
     });
 
     const handleChange = name => event => {
-        setState({ ...state, [name]: Number(event.target.value) });
+        setState({ ...state, [name]: event.target.value });
     };
 
     function handleClickOpen() {
@@ -42,11 +42,16 @@ export default function DialogSelect() {
         setState({ ...state, open: false });
     }
 
+    function handleOK() {
+        setState({ ...state, open: false });
+        props.onFilter();
+    }
+
     return (
         <div style={{display: "inline"}}>
-            <Button onClick={handleClickOpen}>Search tools</Button>
+            <Button onClick={handleClickOpen} size="small">Search tools</Button>
             <Dialog disableBackdropClick disableEscapeKeyDown open={state.open} onClose={handleClose}>
-                <DialogTitle>Select:</DialogTitle>
+                <DialogTitle>Filter search result:</DialogTitle>
                 <DialogContent>
                     <form className={classes.container}>
                         <FormControl className={classes.formControl}>
@@ -76,7 +81,7 @@ export default function DialogSelect() {
                                 input={<Input id="age-simple" />}
                             >
                                 <MenuItem value="">
-                                    <em>None</em>
+                                    <em>All</em>
                                 </MenuItem>
                                 <MenuItem value="economics">Economics</MenuItem>
                                 <MenuItem value="health">Health</MenuItem>
@@ -91,7 +96,7 @@ export default function DialogSelect() {
                     <Button onClick={handleClose} color="primary">
                         Cancel
                     </Button>
-                    <Button onClick={handleClose} color="primary">
+                    <Button onClick={handleOK} color="primary">
                         Ok
                     </Button>
                 </DialogActions>

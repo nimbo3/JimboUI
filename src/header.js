@@ -69,7 +69,8 @@ class Header extends Component {
                                     </IconButton>
                                 </Paper>
                             ) : " "
-                        } <DialogSelect/>
+                        }
+                        &nbsp;<DialogSelect onFilter={this.filter}/>
                     </div>
                 </div>
             </div>
@@ -79,6 +80,10 @@ class Header extends Component {
     keyPress(e) {
         if (e.key === 'Enter')
             this.props.onSearch()
+    }
+
+    filter() {
+
     }
 }
 
