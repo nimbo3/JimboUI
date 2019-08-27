@@ -9,18 +9,20 @@ import SearchIcon from '@material-ui/icons/Search';
 import HistoryIcon from '@material-ui/icons/History';
 import Paper from "@material-ui/core/Paper";
 import Cookies from 'universal-cookie';
-import DialogSelect from "./search_tools";
+import FilterDialog from "./search_tools";
 
 const cookies = new Cookies();
 
 class Header extends Component {
+    filterDialogRef = React.createRef();
     searchFieldRef = React.createRef();
 
     constructor(props, context) {
         super(props, context);
         this.state = {
             user: cookies.get("user"),
-            searchValue: this.props.searchFieldValue
+            searchValue: this.props.searchFieldValue,
+            filter: {}
         };
     }
 
@@ -72,7 +74,7 @@ class Header extends Component {
                         }&nbsp;
                         {
                             this.props.searchField ? (
-                                <DialogSelect onFilter={this.filter}/>
+                                <FilterDialog onFilter={this.filter} ref={this.filterDialogRef}/>
                             ) : ""
                         }
                     </div>
@@ -87,8 +89,12 @@ class Header extends Component {
     }
 
     filter() {
-
+        console.log(this.filterDialogRef.current.state);
     }
 }
 
 export default Header;
+
+
+
+
