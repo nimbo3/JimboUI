@@ -24,9 +24,12 @@ class Header extends Component {
             searchValue: this.props.searchFieldValue,
             filter: {}
         };
+
+        this.filter = this.filter.bind(this);
     }
 
     render() {
+        console.log(this.state);
         let rightMenu = (
             <div className={"float-right"}>
                 <Button href={"/signup"}><RegisterIcon/>&nbsp;Register</Button>
@@ -89,7 +92,12 @@ class Header extends Component {
     }
 
     filter() {
-        console.log(this.filterDialogRef.current.state);
+        let filter = this.filterDialogRef.current.state;
+        delete filter.open;
+        this.setState({
+            ...this.state,
+            filter: filter
+        });
     }
 }
 

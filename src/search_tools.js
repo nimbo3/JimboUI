@@ -29,6 +29,10 @@ class FilterDialog extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
+    componentDidMount() {
+
+    }
+
 
     handleChange = name => event => {
         this.setState({...this.state, [name]: event.target.value});
