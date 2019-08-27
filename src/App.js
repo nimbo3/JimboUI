@@ -7,7 +7,7 @@ import IconButton from "@material-ui/core/IconButton";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from '@material-ui/icons/Search';
 import Redirect from "react-router-dom/es/Redirect";
-import Header from "./components/header";
+import Header from "./header";
 
 class App extends Component {
 

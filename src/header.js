@@ -9,6 +9,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import HistoryIcon from '@material-ui/icons/History';
 import Paper from "@material-ui/core/Paper";
 import Cookies from 'universal-cookie';
+import DialogSelect from "./search_tools";
 
 const cookies = new Cookies();
 
@@ -42,6 +43,7 @@ class Header extends Component {
         return (
             <div className={"app-header"}>
                 <div>
+                    {rightMenu}
                     <div className={"float-left"}>
                         <Button href={"/"}>Joojle</Button>
                         {
@@ -53,7 +55,7 @@ class Header extends Component {
                                                 "searchValue": e.target.value
                                             })
                                         }}
-                                        className={"App-input"}
+                                        className="App-input"
                                         placeholder="Search"
                                         defaultValue={this.props.searchFieldValue}
                                         onKeyPress={e => {
@@ -61,14 +63,14 @@ class Header extends Component {
                                         }}
                                         ref={this.searchFieldRef}
                                     />
-                                    <IconButton onClick={this.props.onSearch} className={"App-icon-button"} aria-label="search">
+                                    <IconButton onClick={this.props.onSearch} className={"App-icon-button"}
+                                                aria-label="search">
                                         <SearchIcon/>
                                     </IconButton>
                                 </Paper>
                             ) : " "
-                        }
+                        } <DialogSelect/>
                     </div>
-                    {rightMenu}
                 </div>
             </div>
         )

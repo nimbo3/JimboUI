@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import { progressBarFetch, setOriginalFetch } from 'react-fetch-progressbar';
 import { ProgressBar } from 'react-fetch-progressbar';
-import Header from "./components/header";
+import Header from "./header";
 import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
@@ -54,7 +54,7 @@ class SearchResult extends Component {
                                 <div className={"search-item"}>
                                     <a className={"search-item-title"} href={item.url}>{item.title}</a><br/>
                                     <a className={"search-item-url"} href={item.url}>{SearchResult.uriShow(item.url)}</a><br/>
-                                    <span className={"search-item-text"} dangerouslySetInnerHTML={{__html: item.text}}></span>
+                                    <span className={"search-item-text"} dangerouslySetInnerHTML={{__html: item.text}}/>
                                 </div>
                             )
                         )
@@ -74,8 +74,8 @@ class SearchResult extends Component {
     }
 
     fetch_search_result(str) {
-        let url = "http://46.4.40.237/test/?q=" + str; // For Publish
-        // let url = "http://localhost:8000/test/?q=" + str; // For Test
+        // let url = "http://46.4.40.237/test/?q=" + str; // For Publish
+        let url = "http://localhost:8000/test/?q=" + str; // For Test
 
         let headers = {};
         if (cookies.get("user") !== undefined)

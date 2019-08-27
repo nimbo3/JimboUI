@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import 'bootstrap/dist/css/bootstrap.css';
 import TextField from "@material-ui/core/TextField";
-import Header from "./components/header";
+import Header from "./header";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -12,8 +12,8 @@ import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
 
-// const rest_api_host = "localhost:8000";     // For Test
-const rest_api_host = "46.4.40.237";     // For publish
+const rest_api_host = "localhost:8000";     // For Test
+// const rest_api_host = "46.4.40.237";     // For publish
 
 class Login extends Component {
     setValues(newValues) {
