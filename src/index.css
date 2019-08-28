@@ -7,6 +7,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.App-search-result-input-root {
+  vertical-align: center;
+  align-items: center;
+}
+
+.search-chip {
+  margin: 2px
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;

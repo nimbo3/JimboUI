@@ -8,8 +8,11 @@ import IconButton from "@material-ui/core/IconButton";
 import SearchIcon from '@material-ui/icons/Search';
 import HistoryIcon from '@material-ui/icons/History';
 import Paper from "@material-ui/core/Paper";
+import LanguageIcon from '@material-ui/icons/Language';
+import CategoryIcon from '@material-ui/icons/Category';
 import Cookies from 'universal-cookie';
 import FilterDialog from "./search_tools";
+import Chip from "@material-ui/core/Chip";
 
 const cookies = new Cookies();
 
@@ -69,6 +72,30 @@ class Header extends Component {
                                         }}
                                         ref={this.searchFieldRef}
                                     />
+                                    {
+                                        this.state.filter.language !== undefined && this.state.filter.language !== "" ?
+                                            (
+                                                <Chip
+                                                    icon={<LanguageIcon/>}
+                                                    label={this.state.filter.language}
+                                                    // onClick={handleClick}
+                                                    onDelete={this.handleDelete}
+                                                    className="search-chip"
+                                                />
+                                            ) : ""
+                                    }
+                                    {
+                                        this.state.filter.category !== undefined && this.state.filter.category !== "" ?
+                                            (
+                                                <Chip
+                                                    icon={<CategoryIcon/>}
+                                                    label={this.state.filter.category}
+                                                    // onClick={handleClick}
+                                                    onDelete={this.handleDelete}
+                                                    className="search-chip"
+                                                />
+                                            ) : ""
+                                    }
                                     <IconButton onClick={this.props.onSearch} className={"App-icon-button"}
                                                 aria-label="search">
                                         <SearchIcon/>
@@ -78,7 +105,8 @@ class Header extends Component {
                         }&nbsp;
                         {
                             this.props.searchField ? (
-                                <FilterDialog onFilter={this.filter} ref={this.filterDialogRef} query={this.state.filter    }/>
+                                <FilterDialog onFilter={this.filter} ref={this.filterDialogRef}
+                                              query={this.state.filter}/>
                             ) : ""
                         }
                     </div>
