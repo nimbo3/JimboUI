@@ -1,6 +1,6 @@
 import React, {Component} from "react";
-import { progressBarFetch, setOriginalFetch } from 'react-fetch-progressbar';
-import { ProgressBar } from 'react-fetch-progressbar';
+import {progressBarFetch, setOriginalFetch} from 'react-fetch-progressbar';
+import {ProgressBar} from 'react-fetch-progressbar';
 import Header from "./header";
 import Cookies from 'universal-cookie';
 
@@ -15,24 +15,33 @@ class SearchResult extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            query: SearchResult.parseQuery(this.props.location.search),
+            query: "",
+            filter: {},
             items: [],
             searchTime: -1,
             resultCount: 0
         };
+
         this.search = this.search.bind(this);
         this.fetch_search_result = this.fetch_search_result.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.parseQuery = this.parseQuery.bind(this);
+
+        this.parseQuery();
     }
 
-    static parseQuery(queryString) {
+    parseQuery() {
+        let queryString = this.props.location.search;
         let query = {};
         let pairs = (queryString[0] === '?' ? queryString.substr(1) : queryString).split('&');
         for (let i = 0; i < pairs.length; i++) {
             let pair = pairs[i].split('=');
             query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
         }
-        return query;
+        this.state.query = query.q;
+        this.state.filter = query;
     }
+
 
     render = () => {
         return (
@@ -40,7 +49,8 @@ class SearchResult extends Component {
                 <ProgressBar style={{backgroundColor: "black"}}/>
                 <Header
                     searchField={true}
-                    searchFieldValue={this.state.query.q}
+                    query={this.state.query}
+                    filter={this.state.filter}
                     ref={this.searchFieldRef}
                     onSearch={this.search}
                     onChange={this.handleChange}
@@ -55,7 +65,8 @@ class SearchResult extends Component {
                         this.state.items.map(item => (
                                 <div className={"search-item"}>
                                     <a className={"search-item-title"} href={item.url}>{item.title}</a><br/>
-                                    <a className={"search-item-url"} href={item.url}>{SearchResult.uriShow(item.url)}</a><br/>
+                                    <a className={"search-item-url"}
+                                       href={item.url}>{SearchResult.uriShow(item.url)}</a><br/>
                                     <span className={"search-item-text"} dangerouslySetInnerHTML={{__html: item.text}}/>
                                 </div>
                             )
@@ -67,35 +78,40 @@ class SearchResult extends Component {
         );
     };
 
-    search() {
-        console.log(this.searchFieldRef.current.state);
+    handleChange(search: boolean) {
         this.setState({
-            ...this.state,
-            query: {
-                q: this.searchFieldRef.current.state.searchValue,
-                ...this.searchFieldRef.current.state.filter
-            }
+            query: this.searchFieldRef.current.state.query,
+            filter: this.searchFieldRef.current.state.filter
         }, () => {
-            this.fetch_search_result(this.state.query);
+            if(search)
+                this.search();
         });
+    }
+
+    search() {
+        this.fetch_search_result(this.state.query);
     }
 
     fetch_search_result(query) {
         // let url = "http://46.4.40.237/test/?"; // For Publish
         let url = "http://localhost:8000/test/?"; // For Test
-
+        console.log("fetching query: ");
+        console.log(query);
         let headers = {};
         if (cookies.get("user") !== undefined)
             headers = {
                 "authorization": cookies.get("user").token
             };
-        console.log(query);
         let search_address = "";
-        for(let key in query) {
-            search_address += `${key}=${query[key]}&`
-        }
-        this.props.history.push("/search?" + search_address.substr(0, search_address.length - 1));
-        fetch(url + search_address.substr(0, search_address.length - 1), {
+        search_address = `q=${this.state.query}`;
+        if (this.state.filter.language !== undefined && this.state.filter.language !== "")
+            search_address += `&language=${this.state.filter.language}`;
+        if (this.state.filter.category !== undefined && this.state.filter.category !== "")
+            search_address += `&category=${this.state.filter.category}`;
+
+        console.log("/search?" + search_address);
+        this.props.history.push("/search?" + search_address);
+        fetch(url + search_address, {
             method: "GET",
             headers: headers
         })

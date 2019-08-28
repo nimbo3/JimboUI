@@ -19,8 +19,8 @@ class FilterDialog extends Component {
 
         this.state = {
             open: false,
-            language: '',
-            category: ''
+            language: this.props.query.language,
+            category: this.props.query.category
         };
 
         this.handleClickOpen = this.handleClickOpen.bind(this);
@@ -35,7 +35,9 @@ class FilterDialog extends Component {
 
 
     handleChange = name => event => {
-        this.setState({...this.state, [name]: event.target.value});
+        this.setState({...this.state, [name]: event.target.value}, () => {
+            console.log(this.state);
+        });
     };
 
     handleClickOpen() {

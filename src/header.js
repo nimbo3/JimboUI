@@ -21,8 +21,8 @@ class Header extends Component {
         super(props, context);
         this.state = {
             user: cookies.get("user"),
-            searchValue: this.props.searchFieldValue,
-            filter: {}
+            query: this.props.query,
+            filter: this.props.filter
         };
 
         this.filter = this.filter.bind(this);
@@ -56,12 +56,14 @@ class Header extends Component {
                                     <InputBase
                                         onChange={e => {
                                             this.setState({
-                                                "searchValue": e.target.value
+                                                query: e.target.value
+                                            }, () => {
+                                                this.props.onChange(false);
                                             })
                                         }}
                                         className="App-input"
                                         placeholder="Search"
-                                        defaultValue={this.props.searchFieldValue}
+                                        defaultValue={this.props.query}
                                         onKeyPress={e => {
                                             this.keyPress(e)
                                         }}
@@ -76,7 +78,7 @@ class Header extends Component {
                         }&nbsp;
                         {
                             this.props.searchField ? (
-                                <FilterDialog onFilter={this.filter} ref={this.filterDialogRef}/>
+                                <FilterDialog onFilter={this.filter} ref={this.filterDialogRef} query={this.state.filter    }/>
                             ) : ""
                         }
                     </div>
@@ -92,23 +94,12 @@ class Header extends Component {
 
     filter() {
         let filter_list = this.filterDialogRef.current.state;
-        let new_filter_list = {};
-        for(let key in filter_list) {
-            if(filter_list[key] !== "" && key !== "open")
-                new_filter_list[key] = filter_list[key];
-        }
         this.setState({
-            ...this.state,
-            filter: new_filter_list
+            filter: filter_list
         }, () => {
-            this.props.onSearch();
+            this.props.onChange(true);
         });
-
     }
 }
 
 export default Header;
-
-
-
-
