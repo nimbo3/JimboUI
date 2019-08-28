@@ -93,8 +93,8 @@ class SearchResult extends Component {
     }
 
     fetch_search_result(query) {
-        // let url = "http://46.4.40.237/test/?"; // For Publish
-        let url = "http://localhost:8000/test/?"; // For Test
+        let url = "http://46.4.40.237/test/?"; // For Publish
+        // let url = "http://localhost:8000/test/?"; // For Test
         console.log("fetching query: ");
         console.log(query);
         let headers = {};
