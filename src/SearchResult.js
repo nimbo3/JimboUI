@@ -46,7 +46,7 @@ class SearchResult extends Component {
     render = () => {
         return (
             <div>
-                <ProgressBar style={{backgroundColor: "black"}}/>
+                <ProgressBar style={{backgroundColor: "black", height: "3px"}}/>
                 <Header
                     searchField={true}
                     query={this.state.query}
