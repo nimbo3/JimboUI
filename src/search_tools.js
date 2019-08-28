@@ -19,8 +19,8 @@ class FilterDialog extends Component {
 
         this.state = {
             open: false,
-            language: this.props.query.language,
-            category: this.props.query.category
+            language: this.props.value.language,
+            category: this.props.value.category
         };
 
         this.handleClickOpen = this.handleClickOpen.bind(this);

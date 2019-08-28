@@ -12,6 +12,7 @@ import LanguageIcon from '@material-ui/icons/Language';
 import CategoryIcon from '@material-ui/icons/Category';
 import Cookies from 'universal-cookie';
 import FilterDialog from "./search_tools";
+import CloseIcon from '@material-ui/icons/Close';
 import Chip from "@material-ui/core/Chip";
 
 const cookies = new Cookies();
@@ -19,6 +20,24 @@ const cookies = new Cookies();
 class Header extends Component {
     filterDialogRef = React.createRef();
     searchFieldRef = React.createRef();
+
+    language_display = language => ({
+        ar: "Arabic",
+        de: "German",
+        en: "English",
+        es: "Spanish",
+        fr: "French",
+        fa: "Farsi",
+        ru: "Russian"
+    }[language]);
+
+    category_display = category => ({
+        economics: "Economics",
+        health: "Health",
+        sport: "Sport",
+        technology: "Technology",
+        art: "Art"
+    }[category]);
 
     constructor(props, context) {
         super(props, context);
@@ -38,6 +57,17 @@ class Header extends Component {
                 <Button href={"/login"}><AccountIcon/>&nbsp;Login</Button>
             </div>
         );
+
+        let handleDelete = (filter_key) => () => {
+            let newFilter = this.state.filter;
+            delete newFilter[filter_key];
+
+            this.setState({
+                filter: newFilter
+            }, () => {
+                this.props.onChange(true);
+            })
+        };
 
         if (this.state.user !== null && this.state.user !== undefined)
             rightMenu = (
@@ -76,10 +106,13 @@ class Header extends Component {
                                         this.state.filter.language !== undefined && this.state.filter.language !== "" ?
                                             (
                                                 <Chip
+                                                    variant="outlined"
+                                                    deleteIcon={<CloseIcon/>}
+                                                    size="small"
                                                     icon={<LanguageIcon/>}
-                                                    label={this.state.filter.language}
-                                                    // onClick={handleClick}
-                                                    onDelete={this.handleDelete}
+                                                    label={this.language_display(this.state.filter.language)}
+                                                    onClick={this.handleClick}
+                                                    onDelete={handleDelete("language")}
                                                     className="search-chip"
                                                 />
                                             ) : ""
@@ -88,10 +121,13 @@ class Header extends Component {
                                         this.state.filter.category !== undefined && this.state.filter.category !== "" ?
                                             (
                                                 <Chip
+                                                    variant="outlined"
+                                                    deleteIcon={<CloseIcon/>}
+                                                    size="small"
                                                     icon={<CategoryIcon/>}
-                                                    label={this.state.filter.category}
-                                                    // onClick={handleClick}
-                                                    onDelete={this.handleDelete}
+                                                    label={this.category_display(this.state.filter.category)}
+                                                    onClick={this.handleClick}
+                                                    onDelete={handleDelete("category")}
                                                     className="search-chip"
                                                 />
                                             ) : ""
@@ -106,7 +142,7 @@ class Header extends Component {
                         {
                             this.props.searchField ? (
                                 <FilterDialog onFilter={this.filter} ref={this.filterDialogRef}
-                                              query={this.state.filter}/>
+                                              value={this.state.filter}/>
                             ) : ""
                         }
                     </div>
