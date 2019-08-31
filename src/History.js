@@ -357,8 +357,8 @@ class SearchHistory extends Component {
     }
 
     componentDidMount() {
-        let url = "http://localhost:8000/test/history";
-        // let url = "http://46.4.40.234/test/history";
+        // let url = "http://localhost:8000/test/history";
+        let url = "http://46.4.40.234/test/history";
         let headers = {};
         if (cookies.get("user") !== undefined)
             headers = {
