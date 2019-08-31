@@ -14,6 +14,8 @@ import Cookies from 'universal-cookie';
 import FilterDialog from "./search_tools";
 import CloseIcon from '@material-ui/icons/Close';
 import Chip from "@material-ui/core/Chip";
+import {Tooltip} from "@material-ui/core";
+import {makeStyles} from "@material-ui/styles";
 
 const cookies = new Cookies();
 
@@ -53,8 +55,16 @@ class Header extends Component {
     render() {
         let rightMenu = (
             <div className={"float-right"}>
-                <Button href={"/signup"}><RegisterIcon/>&nbsp;Register</Button>
-                <Button href={"/login"}><AccountIcon/>&nbsp;Login</Button>
+                <Tooltip title={"Sign up"}>
+                    <IconButton href="/signup">
+                        <RegisterIcon/>
+                    </IconButton>
+                </Tooltip>
+                <Tooltip title={"login"}>
+                    <IconButton href="/login">
+                        <AccountIcon/>
+                    </IconButton>
+                </Tooltip>
             </div>
         );
 
@@ -72,8 +82,16 @@ class Header extends Component {
         if (this.state.user !== null && this.state.user !== undefined)
             rightMenu = (
                 <div className={"float-right"}>
-                    <Button href={"/history"}><HistoryIcon/>&nbsp;History</Button>
-                    <Button href={"/logout"}><LogoutIcon/>&nbsp;Logout</Button>
+                    <Tooltip title={"Search history"} style={{fontSize: '20px'}}>
+                        <IconButton href={"/history"}>
+                            <HistoryIcon/>
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title={"Logout"} style={{fontSize: '20px'}}>
+                        <IconButton href={"/logout"}>
+                            <LogoutIcon/>
+                        </IconButton>
+                    </Tooltip>
                 </div>
             );
 
