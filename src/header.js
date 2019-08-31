@@ -15,7 +15,11 @@ import FilterDialog from "./search_tools";
 import CloseIcon from '@material-ui/icons/Close';
 import Chip from "@material-ui/core/Chip";
 import {Tooltip} from "@material-ui/core";
-import {makeStyles} from "@material-ui/styles";
+import Popper from '@material-ui/core/Popper';
+import Fade from "@material-ui/core/Fade";
+import MenuList from "@material-ui/core/MenuList";
+import MenuItem from "@material-ui/core/MenuItem";
+
 
 const cookies = new Cookies();
 
@@ -46,10 +50,13 @@ class Header extends Component {
         this.state = {
             user: cookies.get("user"),
             query: this.props.query,
-            filter: this.props.filter
+            filter: this.props.filter,
+            suggests: [],
+            anchor: null
         };
 
         this.filter = this.filter.bind(this);
+        this.updateSuggestions = this.updateSuggestions.bind(this);
     }
 
     render() {
@@ -110,7 +117,12 @@ class Header extends Component {
                                                 query: e.target.value
                                             }, () => {
                                                 this.props.onChange(false);
-                                            })
+                                            });
+                                            this.setState({
+                                                anchor: e.target,
+                                                suggests: []
+                                            });
+                                            this.updateSuggestions();
                                         }}
                                         className="App-input"
                                         placeholder="Search"
@@ -155,7 +167,7 @@ class Header extends Component {
                                         <SearchIcon/>
                                     </IconButton>
                                 </Paper>
-                            ) : " "
+                            ) : ""
                         }&nbsp;
                         {
                             this.props.searchField ? (
@@ -163,6 +175,30 @@ class Header extends Component {
                                               value={this.state.filter}/>
                             ) : ""
                         }
+                        <Popper open={this.state.suggests.length !== 0} transition placement={"bottom-start"} anchorEl={this.state.anchor}>
+                            {({TransitionProps}) => (
+                                <Fade {...TransitionProps} timeout={350}>
+                                    <Paper>
+                                        <MenuList>
+                                            {
+                                                this.state.suggests.map(suggestion => (
+                                                    <MenuItem onClick={() => {
+                                                        this.setState({
+                                                            query: suggestion
+                                                        }, () => {
+                                                            this.searchFieldRef.current.getElementsByTagName("input")[0].value = suggestion;
+                                                            this.setState({
+                                                                suggests: []
+                                                            })
+                                                        })
+                                                    }}>{suggestion}</MenuItem>
+                                                ))
+                                            }
+                                        </MenuList>
+                                    </Paper>
+                                </Fade>
+                            )}
+                        </Popper>
                     </div>
                 </div>
             </div>
@@ -172,6 +208,20 @@ class Header extends Component {
     keyPress(e) {
         if (e.key === 'Enter')
             this.props.onSearch()
+    }
+
+    updateSuggestions() {
+        let query = this.state.query;
+        let url = "http://localhost:8000/test/complete?q=" + query;
+        // let url = "http://46.4.40.237/test/complete?q=" + query;
+        fetch(url)
+            .then(res => res.json())
+            .then((data) => {
+                this.setState({
+                    suggests: data
+                })
+            })
+            .catch(console.log)
     }
 
     filter() {

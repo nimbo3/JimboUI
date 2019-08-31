@@ -12,8 +12,8 @@ import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
 
-// const rest_api_host = "localhost:8000";     // For Test
-const rest_api_host = "46.4.40.237";     // For publish
+const rest_api_host = "localhost:8000";     // For Test
+// const rest_api_host = "46.4.40.237";     // For publish
 
 class Login extends Component {
     setValues(newValues) {
