@@ -186,6 +186,7 @@ class Header extends Component {
                                                         this.setState({
                                                             query: suggestion
                                                         }, () => {
+                                                            this.props.onChange();
                                                             this.searchFieldRef.current.getElementsByTagName("input")[0].value = suggestion;
                                                             this.setState({
                                                                 suggests: []
