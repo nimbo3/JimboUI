@@ -15,6 +15,7 @@ import Typography from "@material-ui/core/Typography";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import {makeStyles} from "@material-ui/core";
+import AppBar from "@material-ui/core/AppBar";
 
 const cookies = new Cookies();
 
@@ -68,10 +69,12 @@ class SearchHistory extends Component {
             "today": [],
             "week": [],
             "month": [],
+            "year": [],
             "tab": 1
         };
 
         this.handleChange = this.handleChange.bind(this)
+        this.handleChangeIndex = this.handleChangeIndex.bind(this)
     }
 
     useStyles = makeStyles(theme => ({
@@ -92,34 +95,45 @@ class SearchHistory extends Component {
         })
     }
 
+    handleChangeIndex(index) {
+        this.setState({
+            tab: index
+        })
+    }
+
     render() {
         return (
             <div className="history-container">
                 <Header/>
-                <Tabs
-                    value={this.state.tab}
-                    onChange={this.handleChange}
-                    aria-label="Vertical tabs example"
-                    className={this.useStyles.tabs}
-                    textColor="primary"
-                    centered
-                >
-                    <Tab label="Today" {...a11yProps(0)} />
-                    <Tab label="This week" {...a11yProps(1)} />
-                    <Tab label="This month" {...a11yProps(2)} />
-                </Tabs>
+                <AppBar position="static" color={"white"}>
+                    <Tabs
+                        value={this.state.tab}
+                        onChange={this.handleChange}
+                        aria-label="Vertical tabs example"
+                        className={this.useStyles.tabs}
+                        textColor="primary"
+                        indicatorColor="primary"
+                        centered
+                    >
+                        <Tab label="Today" {...a11yProps(0)} />
+                        <Tab label="Last week" {...a11yProps(1)} />
+                        <Tab label="Last month" {...a11yProps(2)} />
+                        <Tab label="Last year" {...a11yProps(3)} />
+                    </Tabs>
+                </AppBar>
                 <SwipeableViews
                     axis={'x'}
                     index={this.state.tab}
+                    onChangeIndex={this.handleChangeIndex}
                 >
                     <TabPanel value={this.state.tab} index={0}>
                         <Table className="history-table">
                             <TableHead>
                                 <TableRow>
                                     <TableCell>Query</TableCell>
-                                    <TableCell align="right">time</TableCell>
-                                    <TableCell align="right">language</TableCell>
-                                    <TableCell align="right">category</TableCell>
+                                    <TableCell align="center">time</TableCell>
+                                    <TableCell align="center">language</TableCell>
+                                    <TableCell align="center">category</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -128,8 +142,8 @@ class SearchHistory extends Component {
                                         <TableCell component="th" scope="row">
                                             {row.query}
                                         </TableCell>
-                                        <TableCell align="right">{row.search_time}</TableCell>
-                                        <TableCell align="right">{
+                                        <TableCell align="center">{row.search_time}</TableCell>
+                                        <TableCell align="center">{
                                             row.language === null ? "" : (
                                                 <Chip
                                                     variant="outlined"
@@ -140,7 +154,7 @@ class SearchHistory extends Component {
                                                 />
                                             )
                                         }</TableCell>
-                                        <TableCell align="right">{
+                                        <TableCell align="center">{
                                             row.category === null ? "" : (
                                                 <Chip
                                                     variant="outlined"
@@ -161,9 +175,9 @@ class SearchHistory extends Component {
                             <TableHead>
                                 <TableRow>
                                     <TableCell>Query</TableCell>
-                                    <TableCell align="right">time</TableCell>
-                                    <TableCell align="right">language</TableCell>
-                                    <TableCell align="right">category</TableCell>
+                                    <TableCell align="center">time</TableCell>
+                                    <TableCell align="center">language</TableCell>
+                                    <TableCell align="center">category</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -172,8 +186,8 @@ class SearchHistory extends Component {
                                         <TableCell component="th" scope="row">
                                             {row.query}
                                         </TableCell>
-                                        <TableCell align="right">{row.search_time}</TableCell>
-                                        <TableCell align="right">{
+                                        <TableCell align="center">{row.search_time}</TableCell>
+                                        <TableCell align="center">{
                                             row.language === null ? "" : (
                                                 <Chip
                                                     variant="outlined"
@@ -184,7 +198,7 @@ class SearchHistory extends Component {
                                                 />
                                             )
                                         }</TableCell>
-                                        <TableCell align="right">{
+                                        <TableCell align="center">{
                                             row.category === null ? "" : (
                                                 <Chip
                                                     variant="outlined"
@@ -205,9 +219,9 @@ class SearchHistory extends Component {
                             <TableHead>
                                 <TableRow>
                                     <TableCell>Query</TableCell>
-                                    <TableCell align="right">time</TableCell>
-                                    <TableCell align="right">language</TableCell>
-                                    <TableCell align="right">category</TableCell>
+                                    <TableCell align="center">time</TableCell>
+                                    <TableCell align="center">language</TableCell>
+                                    <TableCell align="center">category</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -216,8 +230,8 @@ class SearchHistory extends Component {
                                         <TableCell component="th" scope="row">
                                             {row.query}
                                         </TableCell>
-                                        <TableCell align="right">{row.search_time}</TableCell>
-                                        <TableCell align="right">{
+                                        <TableCell align="center">{row.search_time}</TableCell>
+                                        <TableCell align="center">{
                                             row.language === null ? "" : (
                                                 <Chip
                                                     variant="outlined"
@@ -228,7 +242,51 @@ class SearchHistory extends Component {
                                                 />
                                             )
                                         }</TableCell>
-                                        <TableCell align="right">{
+                                        <TableCell align="center">{
+                                            row.category === null ? "" : (
+                                                <Chip
+                                                    variant="outlined"
+                                                    size="small"
+                                                    icon={<CategoryIcon/>}
+                                                    label={this.category_display(row.category)}
+                                                    className="search-chip"
+                                                />
+                                            )
+                                        }</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TabPanel>
+                    <TabPanel value={this.state.tab} index={3}>
+                        <Table className="history-table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Query</TableCell>
+                                    <TableCell align="center">time</TableCell>
+                                    <TableCell align="center">language</TableCell>
+                                    <TableCell align="center">category</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {this.state.year.map(row => (
+                                    <TableRow key={row.id}>
+                                        <TableCell component="th" scope="row">
+                                            {row.query}
+                                        </TableCell>
+                                        <TableCell align="center">{row.search_time}</TableCell>
+                                        <TableCell align="center">{
+                                            row.language === null ? "" : (
+                                                <Chip
+                                                    variant="outlined"
+                                                    size="small"
+                                                    icon={<LanguageIcon/>}
+                                                    label={this.language_display(row.language)}
+                                                    className="search-chip"
+                                                />
+                                            )
+                                        }</TableCell>
+                                        <TableCell align="center">{
                                             row.category === null ? "" : (
                                                 <Chip
                                                     variant="outlined"
