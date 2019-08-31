@@ -93,10 +93,8 @@ class SearchResult extends Component {
     }
 
     fetch_search_result(query) {
-        let url = "http://46.4.40.237/test/?"; // For Publish
-        // let url = "http://localhost:8000/test/?"; // For Test
-        console.log("fetching query: ");
-        console.log(query);
+        // let url = "http://46.4.40.237/test/?"; // For Publish
+        let url = "http://localhost:8000/test/?"; // For Test
         let headers = {};
         if (cookies.get("user") !== undefined)
             headers = {
@@ -109,7 +107,6 @@ class SearchResult extends Component {
         if (this.state.filter.category !== undefined && this.state.filter.category !== "")
             search_address += `&category=${this.state.filter.category}`;
 
-        console.log("/search?" + search_address);
         this.props.history.push("/search?" + search_address);
         fetch(url + search_address, {
             method: "GET",
