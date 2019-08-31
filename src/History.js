@@ -4,7 +4,7 @@ import Header from "./header";
 
 const cookies = new Cookies();
 
-class History extends Component {
+class SearchHistory extends Component {
     constructor(props, context) {
         super(props, context);
 
@@ -27,4 +27,4 @@ class History extends Component {
     }
 }
 
-export default History;
+export default SearchHistory;

@@ -9,6 +9,7 @@ import Register from "./Register";
 import Login from "./Login";
 import Logout from "./logout";
 import MyGraph from "./Graph";
+import SearchHistory from "./History";
 
 ReactDOM.render((
     <Router>
@@ -17,6 +18,7 @@ ReactDOM.render((
         <Route exact path={"/signup"} component={Register}/>
         <Route exact path={"/login"} component={Login}/>
         <Route exact path={"/logout"} component={Logout}/>
+        <Route exact path={"/history"} component={SearchHistory}/>
         <Route exact path={"/master"} component={MyGraph}/>
     </Router>
 
