@@ -29,3 +29,16 @@ code {
 .formControl {
   width: 120px;
 }
+
+.history-table {
+  width: 100%;
+}
+
+.history-container {
+  top: 70px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+  overflow-y: scroll;
+}

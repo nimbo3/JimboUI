@@ -6,72 +6,293 @@ import Table from "@material-ui/core/Table";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
-import Paper from "@material-ui/core/Paper";
+import LanguageIcon from '@material-ui/icons/Language';
+import CategoryIcon from '@material-ui/icons/Category';
+import Chip from "@material-ui/core/Chip";
+import CloseIcon from "@material-ui/core/SvgIcon/SvgIcon";
+import Box from "@material-ui/core/Box";
+import Typography from "@material-ui/core/Typography";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import {makeStyles} from "@material-ui/core";
 
 const cookies = new Cookies();
 
+function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+
+    return (
+        <Typography
+            component="div"
+            role="tabpanel"
+            hidden={value !== index}
+            id={`vertical-tabpanel-${index}`}
+            aria-labelledby={`vertical-tab-${index}`}
+            {...other}
+        >
+            <Box p={3}>{children}</Box>
+        </Typography>
+    );
+}
+
+function a11yProps(index) {
+    return {
+        id: `vertical-tab-${index}`,
+        'aria-controls': `vertical-tabpanel-${index}`,
+    };
+}
+
 class SearchHistory extends Component {
+    language_display = language => ({
+        ar: "Arabic",
+        de: "German",
+        en: "English",
+        es: "Spanish",
+        fr: "French",
+        fa: "Farsi",
+        ru: "Russian"
+    }[language]);
+
+    category_display = category => ({
+        economics: "Economics",
+        health: "Health",
+        sport: "Sport",
+        technology: "Technology",
+        art: "Art"
+    }[category]);
+
     constructor(props, context) {
         super(props, context);
 
         this.state = {
-            "today": [
-                {
-                    query: "خرس سفید",
-                    search_time: "2019-08-27T09:47:58.141Z",
-                    language: null,
-                    category: null
-                },
-                {
-                    query: "خرس سفید",
-                    search_time: "2019-08-27T09:47:58.141Z",
-                    language: null,
-                    category: null
-                }
-            ],
+            "today": [],
             "week": [],
-            "month": []
-        }
+            "month": [],
+            "tab": 1
+        };
+
+        this.handleChange = this.handleChange.bind(this)
+    }
+
+    useStyles = makeStyles(theme => ({
+        root: {
+            flexGrow: 1,
+            backgroundColor: "white",
+            display: 'flex',
+            height: 224,
+        },
+        tabs: {
+            borderRight: `1px solid #999`,
+        },
+    }));
+
+    handleChange(event, newValue) {
+        this.setState({
+            tab: newValue
+        })
     }
 
     render() {
         return (
-            <div className={"App-header"}>
+            <div className="history-container">
                 <Header/>
-                Search history
-                <div className={"container"}>
-                    <div className={"row"}>
-                        {
-                            this.state.today.length !== 0 ? (
-                                <div className={"col-12"}>
-                                    <h4>today</h4>
-                                    <Table>
-                                        <TableHead>
-                                            <TableRow>
-                                                <TableCell>Query</TableCell>
-                                                <TableCell align="right">time</TableCell>
-                                                <TableCell align="right">language</TableCell>
-                                                <TableCell align="right">category</TableCell>
-                                            </TableRow>
-                                        </TableHead>
-                                        <TableBody>
-                                            {this.state.today.map(row => (
-                                                <TableRow key={row.id}>
-                                                    <TableCell component="th" scope="row">
-                                                        {row.query}
-                                                    </TableCell>
-                                                    <TableCell align="right">{row.search_time}</TableCell>
-                                                    <TableCell align="right">{row.language}</TableCell>
-                                                    <TableCell align="right">{row.category}</TableCell>
-                                                </TableRow>
-                                            ))}
-                                        </TableBody>
-                                    </Table>
-                                </div>
-                            ) : ""
-                        }
-                    </div>
-                </div>
+                <Tabs
+                    orientation="vertical"
+                    variant="scrollable"
+                    value="value"
+                    onChange={this.handleChange}
+                    aria-label="Vertical tabs example"
+                    className={this.useStyles.tabs}
+                >
+                    <Tab label="Today" {...a11yProps(0)} />
+                    <Tab label="This week" {...a11yProps(1)} />
+                    <Tab label="This month" {...a11yProps(2)} />
+                </Tabs>
+                <TabPanel value={this.state.tab} index={0}>
+                    <Table className="history-table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Query</TableCell>
+                                <TableCell align="right">time</TableCell>
+                                <TableCell align="right">language</TableCell>
+                                <TableCell align="right">category</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {this.state.today.map(row => (
+                                <TableRow key={row.id}>
+                                    <TableCell component="th" scope="row">
+                                        {row.query}
+                                    </TableCell>
+                                    <TableCell align="right">{row.search_time}</TableCell>
+                                    <TableCell align="right">{
+                                        row.language === null ? "" : (
+                                            <Chip
+                                                variant="outlined"
+                                                size="small"
+                                                icon={<LanguageIcon/>}
+                                                label={this.language_display(row.language)}
+                                                className="search-chip"
+                                            />
+                                        )
+                                    }</TableCell>
+                                    <TableCell align="right">{
+                                        row.category === null ? "" : (
+                                            <Chip
+                                                variant="outlined"
+                                                size="small"
+                                                icon={<CategoryIcon/>}
+                                                label={this.category_display(row.category)}
+                                                className="search-chip"
+                                            />
+                                        )
+                                    }</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TabPanel>
+                <TabPanel value={this.state.tab} index={1}>
+                    <Table className="history-table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Query</TableCell>
+                                <TableCell align="right">time</TableCell>
+                                <TableCell align="right">language</TableCell>
+                                <TableCell align="right">category</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {this.state.week.map(row => (
+                                <TableRow key={row.id}>
+                                    <TableCell component="th" scope="row">
+                                        {row.query}
+                                    </TableCell>
+                                    <TableCell align="right">{row.search_time}</TableCell>
+                                    <TableCell align="right">{
+                                        row.language === null ? "" : (
+                                            <Chip
+                                                variant="outlined"
+                                                size="small"
+                                                icon={<LanguageIcon/>}
+                                                label={this.language_display(row.language)}
+                                                className="search-chip"
+                                            />
+                                        )
+                                    }</TableCell>
+                                    <TableCell align="right">{
+                                        row.category === null ? "" : (
+                                            <Chip
+                                                variant="outlined"
+                                                size="small"
+                                                icon={<CategoryIcon/>}
+                                                label={this.category_display(row.category)}
+                                                className="search-chip"
+                                            />
+                                        )
+                                    }</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TabPanel>
+                <TabPanel value={this.state.tab} index={2}>
+                    <Table className="history-table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Query</TableCell>
+                                <TableCell align="right">time</TableCell>
+                                <TableCell align="right">language</TableCell>
+                                <TableCell align="right">category</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {this.state.month.map(row => (
+                                <TableRow key={row.id}>
+                                    <TableCell component="th" scope="row">
+                                        {row.query}
+                                    </TableCell>
+                                    <TableCell align="right">{row.search_time}</TableCell>
+                                    <TableCell align="right">{
+                                        row.language === null ? "" : (
+                                            <Chip
+                                                variant="outlined"
+                                                size="small"
+                                                icon={<LanguageIcon/>}
+                                                label={this.language_display(row.language)}
+                                                className="search-chip"
+                                            />
+                                        )
+                                    }</TableCell>
+                                    <TableCell align="right">{
+                                        row.category === null ? "" : (
+                                            <Chip
+                                                variant="outlined"
+                                                size="small"
+                                                icon={<CategoryIcon/>}
+                                                label={this.category_display(row.category)}
+                                                className="search-chip"
+                                            />
+                                        )
+                                    }</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TabPanel>
+
+                {/*<div className={"container"}>*/}
+                {/*    <h3>Search history</h3>*/}
+                {/*    {*/}
+                {/*        this.state.today.length !== 0 ? (*/}
+                {/*            <div className={"col-12"}>*/}
+                {/*                <h4>today</h4>*/}
+                {/*                <Table className="history-table">*/}
+                {/*                    <TableHead>*/}
+                {/*                        <TableRow>*/}
+                {/*                            <TableCell>Query</TableCell>*/}
+                {/*                            <TableCell align="right">time</TableCell>*/}
+                {/*                            <TableCell align="right">language</TableCell>*/}
+                {/*                            <TableCell align="right">category</TableCell>*/}
+                {/*                        </TableRow>*/}
+                {/*                    </TableHead>*/}
+                {/*                    <TableBody>*/}
+                {/*                        {this.state.today.map(row => (*/}
+                {/*                            <TableRow key={row.id}>*/}
+                {/*                                <TableCell component="th" scope="row">*/}
+                {/*                                    {row.query}*/}
+                {/*                                </TableCell>*/}
+                {/*                                <TableCell align="right">{row.search_time}</TableCell>*/}
+                {/*                                <TableCell align="right">{*/}
+                {/*                                    row.language === null ? "" : (*/}
+                {/*                                        <Chip*/}
+                {/*                                            variant="outlined"*/}
+                {/*                                            size="small"*/}
+                {/*                                            icon={<LanguageIcon/>}*/}
+                {/*                                            label={this.language_display(row.language)}*/}
+                {/*                                            className="search-chip"*/}
+                {/*                                        />*/}
+                {/*                                    )*/}
+                {/*                                }</TableCell>*/}
+                {/*                                <TableCell align="right">{*/}
+                {/*                                    row.category === null ? "" : (*/}
+                {/*                                        <Chip*/}
+                {/*                                            variant="outlined"*/}
+                {/*                                            size="small"*/}
+                {/*                                            icon={<CategoryIcon/>}*/}
+                {/*                                            label={this.category_display(row.category)}*/}
+                {/*                                            className="search-chip"*/}
+                {/*                                        />*/}
+                {/*                                    )*/}
+                {/*                                }</TableCell>*/}
+                {/*                            </TableRow>*/}
+                {/*                        ))}*/}
+                {/*                    </TableBody>*/}
+                {/*                </Table>*/}
+                {/*            </div>*/}
+                {/*        ) : ""*/}
+                {/*    }*/}
+                {/*</div>*/}
             </div>
         );
     }
@@ -91,7 +312,6 @@ class SearchHistory extends Component {
         })
             .then(res => res.json())
             .then((data) => {
-                console.log(data)
                 this.setState(data, () => {
                     console.log(this.state)
                 });
