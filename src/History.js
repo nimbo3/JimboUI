@@ -245,59 +245,6 @@ class SearchHistory extends Component {
                         </Table>
                     </TabPanel>
                 </SwipeableViews>
-
-                {/*<div className={"container"}>*/}
-                {/*    <h3>Search history</h3>*/}
-                {/*    {*/}
-                {/*        this.state.today.length !== 0 ? (*/}
-                {/*            <div className={"col-12"}>*/}
-                {/*                <h4>today</h4>*/}
-                {/*                <Table className="history-table">*/}
-                {/*                    <TableHead>*/}
-                {/*                        <TableRow>*/}
-                {/*                            <TableCell>Query</TableCell>*/}
-                {/*                            <TableCell align="right">time</TableCell>*/}
-                {/*                            <TableCell align="right">language</TableCell>*/}
-                {/*                            <TableCell align="right">category</TableCell>*/}
-                {/*                        </TableRow>*/}
-                {/*                    </TableHead>*/}
-                {/*                    <TableBody>*/}
-                {/*                        {this.state.today.map(row => (*/}
-                {/*                            <TableRow key={row.id}>*/}
-                {/*                                <TableCell component="th" scope="row">*/}
-                {/*                                    {row.query}*/}
-                {/*                                </TableCell>*/}
-                {/*                                <TableCell align="right">{row.search_time}</TableCell>*/}
-                {/*                                <TableCell align="right">{*/}
-                {/*                                    row.language === null ? "" : (*/}
-                {/*                                        <Chip*/}
-                {/*                                            variant="outlined"*/}
-                {/*                                            size="small"*/}
-                {/*                                            icon={<LanguageIcon/>}*/}
-                {/*                                            label={this.language_display(row.language)}*/}
-                {/*                                            className="search-chip"*/}
-                {/*                                        />*/}
-                {/*                                    )*/}
-                {/*                                }</TableCell>*/}
-                {/*                                <TableCell align="right">{*/}
-                {/*                                    row.category === null ? "" : (*/}
-                {/*                                        <Chip*/}
-                {/*                                            variant="outlined"*/}
-                {/*                                            size="small"*/}
-                {/*                                            icon={<CategoryIcon/>}*/}
-                {/*                                            label={this.category_display(row.category)}*/}
-                {/*                                            className="search-chip"*/}
-                {/*                                        />*/}
-                {/*                                    )*/}
-                {/*                                }</TableCell>*/}
-                {/*                            </TableRow>*/}
-                {/*                        ))}*/}
-                {/*                    </TableBody>*/}
-                {/*                </Table>*/}
-                {/*            </div>*/}
-                {/*        ) : ""*/}
-                {/*    }*/}
-                {/*</div>*/}
             </div>
         );
     }
