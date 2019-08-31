@@ -16,8 +16,13 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import {makeStyles} from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
+import JavascriptTimeAgo from 'javascript-time-ago'
+import en from 'javascript-time-ago/locale/en'
+import ReactTimeAgo from "react-time-ago/modules/ReactTimeAgo";
 
 const cookies = new Cookies();
+
+JavascriptTimeAgo.locale(en);
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -70,10 +75,10 @@ class SearchHistory extends Component {
             "week": [],
             "month": [],
             "year": [],
-            "tab": 1
+            "tab": 0
         };
 
-        this.handleChange = this.handleChange.bind(this)
+        this.handleChange = this.handleChange.bind(this);
         this.handleChangeIndex = this.handleChangeIndex.bind(this)
     }
 
@@ -109,7 +114,6 @@ class SearchHistory extends Component {
                     <Tabs
                         value={this.state.tab}
                         onChange={this.handleChange}
-                        aria-label="Vertical tabs example"
                         className={this.useStyles.tabs}
                         textColor="primary"
                         indicatorColor="primary"
@@ -142,7 +146,9 @@ class SearchHistory extends Component {
                                         <TableCell component="th" scope="row">
                                             {row.query}
                                         </TableCell>
-                                        <TableCell align="center">{row.search_time}</TableCell>
+                                        <TableCell align="center">
+                                            <ReactTimeAgo date={new Date(row.search_time)}/>
+                                        </TableCell>
                                         <TableCell align="center">{
                                             row.language === null ? "" : (
                                                 <Chip
