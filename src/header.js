@@ -82,12 +82,12 @@ class Header extends Component {
         if (this.state.user !== null && this.state.user !== undefined)
             rightMenu = (
                 <div className={"float-right"}>
-                    <Tooltip title={"Search history"} style={{fontSize: '20px'}}>
+                    <Tooltip title={"Search history"}>
                         <IconButton href={"/history"}>
                             <HistoryIcon/>
                         </IconButton>
                     </Tooltip>
-                    <Tooltip title={"Logout"} style={{fontSize: '20px'}}>
+                    <Tooltip title={"Logout"}>
                         <IconButton href={"/logout"}>
                             <LogoutIcon/>
                         </IconButton>
