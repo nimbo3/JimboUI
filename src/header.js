@@ -244,7 +244,7 @@ class Header extends Component {
     updateSuggestions() {
         let query = this.state.query;
         // let url = "http://localhost:8000/test/complete?q=" + query;
-        let url = "http://46.4.40.237/test/complete?q=" + query;
+        let url = "http://46.4.40.237:4444/test/complete?q=" + query;
         fetch(url)
             .then(res => res.json())
             .then((data) => {
