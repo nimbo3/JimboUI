@@ -60,13 +60,20 @@ class SearchResult extends Component {
                         <small>
                             {this.state.searchTime === -1 ? "" : "About " + this.state.resultCount + " results in " + this.state.searchTime + " seconds"}
                         </small>
+                        {
+                            this.state.filter.category !== undefined && this.state.items.length !== 0 ? (
+                                <strong><a href={"/top/" + this.state.filter.category}>
+                                    <br/>view top page's in this category
+                                </a></strong>
+                            ) : ""
+                        }
                     </div>
                     {
                         this.state.items.map(item => (
                                 <div className={"search-item"}>
                                     <a className={"search-item-title"} href={item.url}>{item.title}</a><br/>
-                                    <a className={"search-item-url"}
-                                       href={item.url}>{SearchResult.uriShow(item.url)}</a><br/>
+                                    <span className={"search-item-url"}
+                                       href={item.url}>{SearchResult.uriShow(item.url)}</span><br/>
                                     <span className={"search-item-text"} dangerouslySetInnerHTML={{__html: item.text}}/>
                                 </div>
                             )
@@ -124,16 +131,25 @@ class SearchResult extends Component {
     }
 
     static uriShow(uri) {
-        try {
-            let decode_uri = decodeURI(uri);
-            if (decode_uri.length > 100)
-                decode_uri = decode_uri.substr(0, 100) + "...";
-            return decode_uri;
-        } catch (e) {
-            if (uri.length > 100)
-                return uri.substr(0, 100) + "...";
-            return uri;
-        }
+        let decode_uri = decodeURI(uri);
+        if(decode_uri.startsWith("http://"))
+            decode_uri = decode_uri.substr(7);
+        else if(decode_uri.startsWith("https://"))
+            decode_uri = decode_uri.substr(8);
+        let segments = decode_uri.split("/");
+        let new_segments = segments;
+        if(segments.length > 4)
+            new_segments = [segments[0], segments[1], "...", segments[segments.length - 1]]
+        return new_segments.join(" › ")
+        // try {
+        //     if (decode_uri.length > 100)
+        //         decode_uri = decode_uri.substr(0, 100) + "...";
+        //     return decode_uri;
+        // } catch (e) {
+        //     if (uri.length > 100)
+        //         return uri.substr(0, 100) + "...";
+        //     return uri;
+        // }
     }
 
     keyDown(e) {
