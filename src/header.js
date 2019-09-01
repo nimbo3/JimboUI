@@ -122,7 +122,8 @@ class Header extends Component {
                                             });
                                             this.setState({
                                                 anchor: e.target,
-                                                suggests: []
+                                                suggests: [],
+                                                selectedSuggestion: -1
                                             });
                                             this.updateSuggestions();
                                         }}
@@ -196,7 +197,8 @@ class Header extends Component {
                                                                 this.props.onChange();
                                                                 this.searchFieldRef.current.getElementsByTagName("input")[0].value = suggestion;
                                                                 this.setState({
-                                                                    suggests: []
+                                                                    suggests: [],
+                                                                    selectedSuggestion: -1
                                                                 })
                                                             })
                                                         }}>{suggestion}</MenuItem>
@@ -214,7 +216,7 @@ class Header extends Component {
     }
 
     keyPress(e) {
-        if (e.key === 'Enter' && !(this.state.selectedSuggestion > 0 && this.state.selectedSuggestion < this.state.suggests.length))
+        if (e.key === 'Enter' && !(this.state.selectedSuggestion >= 0 && this.state.selectedSuggestion < this.state.suggests.length))
             this.props.onSearch();
     }
 
@@ -229,14 +231,15 @@ class Header extends Component {
             this.setState({
                 selectedSuggestion: this.state.selectedSuggestion - 1
             });
-        if (e.key === 'Enter' && this.state.selectedSuggestion > 0 && this.state.selectedSuggestion < this.state.suggests.length)
+        if (e.key === 'Enter' && this.state.selectedSuggestion >= 0 && this.state.selectedSuggestion < this.state.suggests.length)
             this.setState({
                 query: this.state.suggests[this.state.selectedSuggestion]
             }, () => {
                 this.props.onChange(true);
                 this.searchFieldRef.current.getElementsByTagName("input")[0].value = this.state.suggests[this.state.selectedSuggestion];
                 this.setState({
-                    suggests: []
+                    suggests: [],
+                    selectedSuggestion: -1
                 })
             })
     }
