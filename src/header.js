@@ -52,11 +52,13 @@ class Header extends Component {
             query: this.props.query,
             filter: this.props.filter,
             suggests: [],
+            selectedSuggestion: -1,
             anchor: null
         };
 
         this.filter = this.filter.bind(this);
         this.updateSuggestions = this.updateSuggestions.bind(this);
+        this.keyDown = this.keyDown.bind(this);
     }
 
     render() {
@@ -130,6 +132,7 @@ class Header extends Component {
                                         onKeyPress={e => {
                                             this.keyPress(e)
                                         }}
+                                        onKeyDown={this.keyDown}
                                         ref={this.searchFieldRef}
                                     />
                                     {
@@ -175,24 +178,28 @@ class Header extends Component {
                                               value={this.state.filter}/>
                             ) : ""
                         }
-                        <Popper open={this.state.suggests.length !== 0} transition placement={"bottom-start"} anchorEl={this.state.anchor}>
+                        <Popper open={this.state.suggests.length !== 0} transition placement={"bottom-start"}
+                                anchorEl={this.state.anchor}>
                             {({TransitionProps}) => (
                                 <Fade {...TransitionProps} timeout={350}>
                                     <Paper>
                                         <MenuList>
                                             {
                                                 this.state.suggests.map(suggestion => (
-                                                    <MenuItem onClick={() => {
-                                                        this.setState({
-                                                            query: suggestion
-                                                        }, () => {
-                                                            this.props.onChange();
-                                                            this.searchFieldRef.current.getElementsByTagName("input")[0].value = suggestion;
+                                                    <MenuItem
+                                                        itemID={this.state.suggests.indexOf(suggestion)}
+                                                        selected={this.state.suggests.indexOf(suggestion) === this.state.selectedSuggestion}
+                                                        onClick={() => {
                                                             this.setState({
-                                                                suggests: []
+                                                                query: suggestion
+                                                            }, () => {
+                                                                this.props.onChange();
+                                                                this.searchFieldRef.current.getElementsByTagName("input")[0].value = suggestion;
+                                                                this.setState({
+                                                                    suggests: []
+                                                                })
                                                             })
-                                                        })
-                                                    }}>{suggestion}</MenuItem>
+                                                        }}>{suggestion}</MenuItem>
                                                 ))
                                             }
                                         </MenuList>
@@ -208,13 +215,36 @@ class Header extends Component {
 
     keyPress(e) {
         if (e.key === 'Enter')
-            this.props.onSearch()
+            this.props.onSearch();
+    }
+
+    keyDown(e) {
+        console.log(e.key);
+        if (e.key === 'ArrowDown' && this.state.selectedSuggestion < this.state.suggests.length)
+            this.setState({
+                selectedSuggestion: this.state.selectedSuggestion + 1
+            });
+
+        if (e.key === 'ArrowUp' && this.state.selectedSuggestion > 0)
+            this.setState({
+                selectedSuggestion: this.state.selectedSuggestion - 1
+            });
+        if (e.key === 'Enter' && this.state.selectedSuggestion > 0 && this.state.selectedSuggestion < this.state.suggests.length)
+            this.setState({
+                query: this.state.suggests[this.state.selectedSuggestion]
+            }, () => {
+                this.props.onChange(true);
+                this.searchFieldRef.current.getElementsByTagName("input")[0].value = this.state.suggests[this.state.selectedSuggestion];
+                this.setState({
+                    suggests: []
+                })
+            })
     }
 
     updateSuggestions() {
         let query = this.state.query;
-        let url = "http://localhost:8000/test/complete?q=" + query;
-        // let url = "http://46.4.40.237/test/complete?q=" + query;
+        // let url = "http://localhost:8000/test/complete?q=" + query;
+        let url = "http://46.4.40.237/test/complete?q=" + query;
         fetch(url)
             .then(res => res.json())
             .then((data) => {
