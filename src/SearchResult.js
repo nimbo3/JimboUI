@@ -48,7 +48,7 @@ class SearchResult extends Component {
         console.log(this.state);
         return (
             <div>
-                <ProgressBar style={{backgroundColor: "black", height: "3px"}}/>
+                <ProgressBar style={{backgroundColor: "black", height: "3px", position: "fixed"}}/>
                 <Header
                     searchField={true}
                     query={this.state.query}

@@ -10,6 +10,7 @@ import Login from "./Login";
 import Logout from "./logout";
 import MyGraph from "./Graph";
 import SearchHistory from "./History";
+import TopTechnology from "./top";
 
 ReactDOM.render((
     <Router>
@@ -20,6 +21,7 @@ ReactDOM.render((
         <Route exact path={"/logout"} component={Logout}/>
         <Route exact path={"/history"} component={SearchHistory}/>
         <Route exact path={"/master"} component={MyGraph}/>
+        <Route exact path={"/top/technology"} component={TopTechnology}/>
     </Router>
 
     ), document.getElementById('root'));
