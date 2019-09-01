@@ -214,7 +214,7 @@ class Header extends Component {
     }
 
     keyPress(e) {
-        if (e.key === 'Enter')
+        if (e.key === 'Enter' && !(this.state.selectedSuggestion > 0 && this.state.selectedSuggestion < this.state.suggests.length))
             this.props.onSearch();
     }
 
