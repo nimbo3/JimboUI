@@ -19,7 +19,7 @@ import Popper from '@material-ui/core/Popper';
 import Fade from "@material-ui/core/Fade";
 import MenuList from "@material-ui/core/MenuList";
 import MenuItem from "@material-ui/core/MenuItem";
-
+import SuggestionIcon from '@material-ui/icons/LocalActivity';
 
 const cookies = new Cookies();
 
@@ -91,6 +91,11 @@ class Header extends Component {
         if (this.state.user !== null && this.state.user !== undefined)
             rightMenu = (
                 <div className={"float-right"}>
+                    <Tooltip title={"Suggestion"}>
+                        <IconButton>
+                            <SuggestionIcon/>
+                        </IconButton>
+                    </Tooltip>
                     <Tooltip title={"Search history"}>
                         <IconButton href={"/history"}>
                             <HistoryIcon/>
