@@ -39,8 +39,12 @@ class SearchResult extends Component {
             let pair = pairs[i].split('=');
             query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
         }
-        this.state.query = query.q;
-        this.state.filter = query;
+        this.setState({
+            query: query.q
+        });
+        this.setState({
+            filter: query
+        });
     }
 
 

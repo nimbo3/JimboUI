@@ -121,6 +121,7 @@ export default class MyGraph extends Component {
             onMouseOutNode={onMouseOutNode}
             onMouseOverLink={onMouseOverLink}
             onMouseOutLink={onMouseOutLink}
+            onDoubleClickNode={onDoubleClickNode}
 
         />);
     }
