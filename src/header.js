@@ -241,7 +241,12 @@ class Header extends Component {
                     suggests: [],
                     selectedSuggestion: -1
                 })
+            });
+        if (e.key === 'Escape') {
+            this.setState({
+                suggests: []
             })
+        }
     }
 
     updateSuggestions() {
