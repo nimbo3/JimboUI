@@ -53,7 +53,8 @@ class Header extends Component {
             filter: this.props.filter,
             suggests: [],
             selectedSuggestion: -1,
-            anchor: null
+            anchor: null,
+            suggestedCategory: ""
         };
 
         this.filter = this.filter.bind(this);
@@ -88,14 +89,18 @@ class Header extends Component {
             })
         };
 
-        if (this.state.user !== null && this.state.user !== undefined)
+        if (this.state.user !== null && this.state.user !== undefined) {
             rightMenu = (
                 <div className={"float-right"}>
-                    <Tooltip title={"Suggestion"}>
-                        <IconButton>
-                            <SuggestionIcon/>
-                        </IconButton>
-                    </Tooltip>
+                    {
+                        this.state.suggestedCategory === "" ? "" : (
+                            <Tooltip title={"Suggestion"}>
+                                <IconButton>
+                                    <SuggestionIcon/>
+                                </IconButton>
+                            </Tooltip>
+                        )
+                    }
                     <Tooltip title={"Search history"}>
                         <IconButton href={"/history"}>
                             <HistoryIcon/>
@@ -108,6 +113,7 @@ class Header extends Component {
                     </Tooltip>
                 </div>
             );
+        }
 
         return (
             <div className={"app-header"}>
