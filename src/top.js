@@ -46,10 +46,32 @@ class TopPages extends Component {
 
 }
 
-function TopTechnology() {
+export function TopTechnology() {
     return (
         <TopPages category={"technology"}/>
     )
 }
 
-export default TopTechnology;
+export function TopSport() {
+    return (
+        <TopPages category={"sport"}/>
+    )
+}
+
+export function TopArt() {
+    return (
+        <TopPages category={"art"}/>
+    )
+}
+
+export function TopEconomics() {
+    return (
+        <TopPages category={"economics"}/>
+    )
+}
+
+export function TopHealth() {
+    return (
+        <TopPages category={"health"}/>
+    )
+}
