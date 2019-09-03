@@ -121,7 +121,7 @@ class Header extends Component {
                     {rightMenu}
                     <div className={"float-left"}>
                         <Button href={"/"}>Joojle</Button>
-                        {this.props.text}
+                        {this.props.content}
                         {
                             this.props.searchField ? (
                                 <Paper className={"App-search-result-input-root"}>
