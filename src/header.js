@@ -16,6 +16,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Chip from "@material-ui/core/Chip";
 import {Tooltip} from "@material-ui/core";
 import Popper from '@material-ui/core/Popper';
+import WebGraphIcon from '@material-ui/icons/BubbleChart';
 import Fade from "@material-ui/core/Fade";
 import MenuList from "@material-ui/core/MenuList";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -65,6 +66,11 @@ class Header extends Component {
     render() {
         let rightMenu = (
             <div className={"float-right"}>
+                <Tooltip title={"Web graph"}>
+                    <IconButton href="/master">
+                        <WebGraphIcon/>
+                    </IconButton>
+                </Tooltip>
                 <Tooltip title={"Sign up"}>
                     <IconButton href="/signup">
                         <RegisterIcon/>
@@ -104,6 +110,11 @@ class Header extends Component {
                     <Tooltip title={"Search history"}>
                         <IconButton href={"/history"}>
                             <HistoryIcon/>
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title={"Web graph"}>
+                        <IconButton href="/master">
+                            <WebGraphIcon/>
                         </IconButton>
                     </Tooltip>
                     <Tooltip title={"Logout"}>
