@@ -64,7 +64,7 @@ class SearchResult extends Component {
                 <div className={"search-items"}>
                     <div className={"search-item"}>
                         <small>
-                            {this.state.searchTime === -1 ? "" : "About " + this.state.resultCount + " results in " + this.state.searchTime + " seconds"}
+                            {this.state.searchTime === -1 ? "" : "Fetch result in " + this.state.searchTime / 1000 + " seconds"}
                         </small>
                         {
                             this.state.filter.category !== undefined && this.state.items.length !== 0 ? (
