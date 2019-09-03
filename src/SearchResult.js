@@ -15,18 +15,20 @@ class SearchResult extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            query: "",
-            filter: {},
-            items: [],
-            searchTime: -1,
-            resultCount: 0
-        };
-
         this.search = this.search.bind(this);
         this.fetch_search_result = this.fetch_search_result.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.parseQuery = this.parseQuery.bind(this);
+
+        let query_ = this.parseQuery()
+
+        this.state = {
+            query: query_.q,
+            filter: query_,
+            items: [],
+            searchTime: -1,
+            resultCount: 0
+        };
 
         this.parseQuery();
     }
@@ -45,6 +47,8 @@ class SearchResult extends Component {
         // this.setState({
         //     filter: query
         // });
+        console.log(query)
+        return query;
     }
 
 

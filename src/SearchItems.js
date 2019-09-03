@@ -21,7 +21,6 @@ class SearchItems extends Component {
     }
 
     static uriShow(uri) {
-        console.log(uri);
         let decode_uri = uri;
         try {
             decode_uri = decodeURI(uri);
