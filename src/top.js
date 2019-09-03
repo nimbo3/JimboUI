@@ -4,6 +4,7 @@ import Header from "./header";
 
 class TopPages extends Component {
 
+
     constructor(props: P, context: any) {
         super(props, context);
         this.state = {
@@ -13,8 +14,8 @@ class TopPages extends Component {
 
         this.fetch_pages = this.fetch_pages.bind(this);
         this.fetch_pages();
+        console.log(this.state);
     }
-
     render() {
         return (
             <div>
@@ -32,7 +33,7 @@ class TopPages extends Component {
 
     fetch_pages() {
         // let url = "http://46.4.40.237/test/top?category=" + this.state.category;
-        let url = "http://localhost:8000/test/top?category=" + this.state.category;
+        let url = "http://46.4.40.237/test/top?category=" + this.state.category;
 
         fetch(url)
             .then(res => res.json())

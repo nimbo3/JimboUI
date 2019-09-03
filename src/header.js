@@ -62,7 +62,7 @@ class Header extends Component {
         this.updateSuggestions = this.updateSuggestions.bind(this);
         this.keyDown = this.keyDown.bind(this);
 
-        fetch("http://localhost:8000/test/suggest", {
+        fetch("http://46.4.40.237/test/suggest", {
             headers: {
                 Authorization: cookies.get("user").token
             }
@@ -152,16 +152,14 @@ class Header extends Component {
                                     <InputBase
                                         onChange={e => {
                                             this.setState({
-                                                query: e.target.value
+                                                query: e.target.value,
+                                                suggests: [],
+                                                selectedSuggestion: -1,
+                                                anchor: e.target
                                             }, () => {
                                                 this.props.onChange(false);
+                                                this.updateSuggestions();
                                             });
-                                            this.setState({
-                                                anchor: e.target,
-                                                suggests: [],
-                                                selectedSuggestion: -1
-                                            });
-                                            this.updateSuggestions();
                                         }}
                                         className="App-input"
                                         placeholder="Search"
@@ -252,12 +250,13 @@ class Header extends Component {
     }
 
     keyPress(e) {
-        if (e.key === 'Enter' && !(this.state.selectedSuggestion >= 0 && this.state.selectedSuggestion < this.state.suggests.length))
+        if (e.key === 'Enter' && !(this.state.selectedSuggestion >= 0 && this.state.selectedSuggestion < this.state.suggests.length)) {
             this.props.onSearch();
+            console.log("salam")
+        }
     }
 
     keyDown(e) {
-        console.log(e.key);
         if (e.key === 'ArrowDown' && this.state.selectedSuggestion < this.state.suggests.length)
             this.setState({
                 selectedSuggestion: this.state.selectedSuggestion + 1

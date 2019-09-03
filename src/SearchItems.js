@@ -3,7 +3,7 @@ import React, {Component} from "react";
 class SearchItems extends Component {
 
     render() {
-        console.log(this.state);
+        console.log(this.props);
         return (
             <div className={"w-100"}>
             {
@@ -21,7 +21,11 @@ class SearchItems extends Component {
     }
 
     static uriShow(uri) {
-        let decode_uri = decodeURI(uri);
+        console.log(uri);
+        let decode_uri = uri;
+        try {
+            decode_uri = decodeURI(uri);
+        } catch (e) {}
         if(decode_uri.startsWith("http://"))
             decode_uri = decode_uri.substr(7);
         else if(decode_uri.startsWith("https://"))
