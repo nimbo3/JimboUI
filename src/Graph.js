@@ -3444,11 +3444,12 @@ export default class MyGraph extends Component {
         });
         let linkedNodes = {};
         let links = data.links.map(link => {
+            let target = link.destination === undefined ? link.target : link.destination;
             linkedNodes[this.linkToIndex[link.source]] = true;
-            linkedNodes[this.linkToIndex[link.destination]] = true;
+            linkedNodes[this.linkToIndex[target]] = true;
             return {
                 source: this.linkToIndex[link.source],
-                target: this.linkToIndex[link.destination],
+                target: this.linkToIndex[target],
                 anchor: link.anchor
             }
         });
@@ -3471,7 +3472,8 @@ export default class MyGraph extends Component {
         super(props, context);
 
         this.state = {
-            data: this.prepareData(this.originalData)
+            data: this.prepareData(this.originalData),
+            isFirstLevel: true,
         };
 
         this.onMouseOverLink = this.onMouseOverLink.bind(this);
@@ -3531,7 +3533,25 @@ export default class MyGraph extends Component {
     };
 
     onClickNode(nodeId) {
-        // window.alert(`Clicked node ${nodeId}`);
+        if(this.state.isFirstLevel) {
+            let clickedURL = encodeURIComponent(this.indexToLink[nodeId]);
+            let fetchingURL = "http://46.4.40.237:1478/graph?url=" + clickedURL;
+            fetch(fetchingURL)
+                .then(res => res.json())
+                .then((data) => {
+                    this.setState({
+                        data: this.prepareData(data),
+                        isFirstLevel: false
+                    })
+                })
+                .catch(console.log)
+
+        } else {
+            this.setState({
+                isFirstLevel: true,
+                data: this.prepareData(this.originalData)
+            })
+        }
     };
 
     onDoubleClickNode(nodeId) {

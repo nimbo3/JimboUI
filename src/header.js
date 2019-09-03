@@ -16,6 +16,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Chip from "@material-ui/core/Chip";
 import {Tooltip} from "@material-ui/core";
 import Popper from '@material-ui/core/Popper';
+import WebGraphIcon from '@material-ui/icons/BubbleChart';
 import Fade from "@material-ui/core/Fade";
 import MenuList from "@material-ui/core/MenuList";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -40,7 +41,7 @@ class Header extends Component {
     category_display = category => ({
         economics: "Economics",
         health: "Health",
-        sport: "Sport",
+        sports: "Sports",
         technology: "Technology",
         art: "Art"
     }[category]);
@@ -60,11 +61,29 @@ class Header extends Component {
         this.filter = this.filter.bind(this);
         this.updateSuggestions = this.updateSuggestions.bind(this);
         this.keyDown = this.keyDown.bind(this);
+
+        fetch("http://localhost:8000/test/suggest", {
+            headers: {
+                Authorization: cookies.get("user").token
+            }
+        })
+            .then(res => res.json())
+            .then((data) => {
+                this.setState({
+                    suggestedCategory: data.suggest
+                })
+            })
+            .catch(console.log)
     }
 
     render() {
         let rightMenu = (
             <div className={"float-right"}>
+                <Tooltip title={"Web graph"}>
+                    <IconButton href="/master">
+                        <WebGraphIcon/>
+                    </IconButton>
+                </Tooltip>
                 <Tooltip title={"Sign up"}>
                     <IconButton href="/signup">
                         <RegisterIcon/>
@@ -95,7 +114,7 @@ class Header extends Component {
                     {
                         this.state.suggestedCategory === "" ? "" : (
                             <Tooltip title={"Suggestion"}>
-                                <IconButton>
+                                <IconButton href={"/top/" + this.state.suggestedCategory}>
                                     <SuggestionIcon/>
                                 </IconButton>
                             </Tooltip>
@@ -104,6 +123,11 @@ class Header extends Component {
                     <Tooltip title={"Search history"}>
                         <IconButton href={"/history"}>
                             <HistoryIcon/>
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title={"Web graph"}>
+                        <IconButton href="/master">
+                            <WebGraphIcon/>
                         </IconButton>
                     </Tooltip>
                     <Tooltip title={"Logout"}>

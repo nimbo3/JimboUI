@@ -52,9 +52,9 @@ export function TopTechnology() {
     )
 }
 
-export function TopSport() {
+export function TopSports() {
     return (
-        <TopPages category={"sport"}/>
+        <TopPages category={"sports"}/>
     )
 }
 

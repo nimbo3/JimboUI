@@ -91,7 +91,7 @@ class FilterDialog extends Component {
                                     </MenuItem>
                                     <MenuItem value="economics">Economics</MenuItem>
                                     <MenuItem value="health">Health</MenuItem>
-                                    <MenuItem value='sport'>Sport</MenuItem>
+                                    <MenuItem value='sports'>Sports</MenuItem>
                                     <MenuItem value='technology'>Technology</MenuItem>
                                     <MenuItem value='art'>Art</MenuItem>
                                 </Select>
