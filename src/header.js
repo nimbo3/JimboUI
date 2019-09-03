@@ -61,6 +61,19 @@ class Header extends Component {
         this.filter = this.filter.bind(this);
         this.updateSuggestions = this.updateSuggestions.bind(this);
         this.keyDown = this.keyDown.bind(this);
+
+        fetch("http://localhost:8000/test/suggest", {
+            headers: {
+                Authorization: cookies.get("user").token
+            }
+        })
+            .then(res => res.json())
+            .then((data) => {
+                this.setState({
+                    suggestedCategory: data.suggest
+                })
+            })
+            .catch(console.log)
     }
 
     render() {
@@ -101,7 +114,7 @@ class Header extends Component {
                     {
                         this.state.suggestedCategory === "" ? "" : (
                             <Tooltip title={"Suggestion"}>
-                                <IconButton>
+                                <IconButton href={"/top/" + this.state.suggestedCategory}>
                                     <SuggestionIcon/>
                                 </IconButton>
                             </Tooltip>
