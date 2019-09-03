@@ -59,9 +59,9 @@ export function TopSports() {
     )
 }
 
-export function TopArt() {
+export function TopArts() {
     return (
-        <TopPages category={"art"}/>
+        <TopPages category={"arts"}/>
     )
 }
 

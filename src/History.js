@@ -64,7 +64,7 @@ class SearchHistory extends Component {
         health: "Health",
         sports: "Sports",
         technology: "Technology",
-        art: "Art"
+        arts: "Arts"
     }[category]);
 
     constructor(props, context) {

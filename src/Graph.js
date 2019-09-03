@@ -3487,17 +3487,67 @@ export default class MyGraph extends Component {
     }
 
     render() {
+
         const myConfig = {
+            automaticRearrangeAfterDropNode: true,
+            collapsible: true,
+            directed: true,
+            focusAnimationDuration: 0.75,
+            focusZoom: 1,
+            height: 920,
+            highlightDegree: 1,
+            highlightOpacity: 1,
+            linkHighlightBehavior: true,
+            maxZoom: 8,
+            minZoom: 0.1,
             nodeHighlightBehavior: true,
+            panAndZoom: false,
+            staticGraph: false,
+            width: 1920,
+            d3: {
+                alphaTarget: 0.05,
+                gravity: -100,
+                linkLength: 100,
+                linkStrength: 1,
+            },
             node: {
                 color: "lightgreen",
                 size: 120,
                 highlightStrokeColor: "blue",
+                fontColor: "black",
+                fontSize: 8,
+                fontWeight: "normal",
+                highlightColor: "SAME",
+                highlightFontSize: 8,
+                highlightFontWeight: "normal",
+                highlightStrokeWidth: "SAME",
+                labelProperty: "id",
+                mouseCursor: "pointer",
+                opacity: 1,
+                renderLabel: true,
+                strokeColor: "none",
+                strokeWidth: 1.5,
+                svg: "",
+                symbolType: "circle",
+                viewGenerator: null,
             },
             link: {
+                color: "#d3d3d3",
+                fontColor: "black",
+                fontSize: 8,
+                fontWeight: "normal",
                 highlightColor: "lightblue",
+                highlightFontSize: 8,
+                highlightFontWeight: "normal",
+                labelProperty: "label",
+                mouseCursor: "pointer",
+                opacity: 1,
+                renderLabel: false,
+                semanticStrokeWidth: false,
+                strokeWidth: 1.5,
+                type: "STRAIGHT",
             },
-        };
+        }
 
         return (
             <div className={"App-header"}>
