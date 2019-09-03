@@ -10,7 +10,7 @@ import Login from "./Login";
 import Logout from "./logout";
 import MyGraph from "./Graph";
 import SearchHistory from "./History";
-import {TopArt, TopEconomics, TopHealth, TopSport, TopTechnology} from "./top";
+import {TopArt, TopEconomics, TopHealth, TopSports, TopTechnology} from "./top";
 
 ReactDOM.render((
     <Router>
@@ -24,7 +24,7 @@ ReactDOM.render((
         <Route exact path={"/top/art"} component={TopArt()}/>
         <Route exact path={"/top/economics"} component={TopEconomics}/>
         <Route exact path={"/top/health"} component={TopHealth}/>
-        <Route exact path={"/top/sport"} component={TopSport}/>
+        <Route exact path={"/top/sports"} component={TopSports}/>
         <Route exact path={"/top/technology"} component={TopTechnology}/>
     </Router>
 

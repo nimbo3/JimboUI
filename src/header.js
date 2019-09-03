@@ -41,7 +41,7 @@ class Header extends Component {
     category_display = category => ({
         economics: "Economics",
         health: "Health",
-        sport: "Sport",
+        sports: "Sports",
         technology: "Technology",
         art: "Art"
     }[category]);
