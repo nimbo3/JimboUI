@@ -62,18 +62,20 @@ class Header extends Component {
         this.updateSuggestions = this.updateSuggestions.bind(this);
         this.keyDown = this.keyDown.bind(this);
 
-        fetch("http://46.4.40.237/test/suggest", {
-            headers: {
-                Authorization: cookies.get("user").token
-            }
-        })
-            .then(res => res.json())
-            .then((data) => {
-                this.setState({
-                    suggestedCategory: data.suggest
-                })
+        if(cookies.get("user") !== undefined) {
+            fetch("http://46.4.40.237/test/suggest", {
+                headers: {
+                    Authorization: cookies.get("user").token
+                }
             })
-            .catch(console.log)
+                .then(res => res.json())
+                .then((data) => {
+                    this.setState({
+                        suggestedCategory: data.suggest
+                    })
+                })
+                .catch(console.log)
+        }
     }
 
     render() {

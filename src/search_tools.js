@@ -93,7 +93,7 @@ class FilterDialog extends Component {
                                     <MenuItem value="health">Health</MenuItem>
                                     <MenuItem value='sports'>Sports</MenuItem>
                                     <MenuItem value='technology'>Technology</MenuItem>
-                                    <MenuItem value='art'>Art</MenuItem>
+                                    <MenuItem value='arts'>Arts</MenuItem>
                                 </Select>
                             </FormControl>
                         </form>
