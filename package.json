@@ -14,7 +14,7 @@
     "react": "^16.8.6",
     "react-d3-graph": "^2.1.0",
     "react-dom": "^16.8.6",
-    "react-editable-json-tree": "^2.2.1",
+    "react-editable-json-tree": "^2.2.2",
     "react-fetch-progressbar": "^1.0.0",
     "react-router": "latest",
     "react-scripts": "3.0.1",
