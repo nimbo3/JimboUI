@@ -8562,10 +8562,10 @@ react-dom@^16.8.6:
     prop-types "^15.6.2"
     scheduler "^0.13.6"
 
-react-editable-json-tree@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/react-editable-json-tree/-/react-editable-json-tree-2.2.1.tgz#1ae3f13a4b4358c3cf058e47c200baaf690bfacb"
-  integrity sha512-GwhhcvU5ptg9rbaMWr+hTGwfxX6JNfV+fwdrNaqIAlEQu+GJKi4PKICRrlvibKNl2z5DOmL6x3ppEBSusY1K+g==
+react-editable-json-tree@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/react-editable-json-tree/-/react-editable-json-tree-2.2.2.tgz#2103fca430c16c9ace775349033e91c1c46470ef"
+  integrity sha512-RjKa2WVpD9UiBeNxEDOmxRmtuCv2JM3s9Gg4yVxtAIYvEO05IgG5npFagSAEC/vhyAFHlp+a6NC8qLszZa+fyQ==
   dependencies:
     prop-types "^15.6.0"
     react-hotkeys "^0.10.0"
