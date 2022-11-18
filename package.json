@@ -17,7 +17,7 @@
     "react-editable-json-tree": "^2.2.1",
     "react-fetch-progressbar": "^1.0.0",
     "react-router": "latest",
-    "react-scripts": "3.0.1",
+    "react-scripts": "5.0.1",
     "react-swipeable-views": "^0.13.3",
     "react-time-ago": "^5.0.4",
     "serve": "11.1.0"
